@@ -1,7 +1,5 @@
 # RICOCHET-ROBOT-
 Projet JAVA
 
-
-
-richard pd
-AD pd
+Jeu Ricochet Robots
+![image du plateau de Ricochet Robots](https://imgur.com/a/F1MFGZS)
