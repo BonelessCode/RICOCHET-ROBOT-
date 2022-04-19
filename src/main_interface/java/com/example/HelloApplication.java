@@ -62,6 +62,7 @@ public class HelloApplication extends Application {
 
         for (int k=0;k<WIDTH;k++){
             for (int j=0;j<WIDTH;j++) {
+
                 ImageView image = new ImageView(caseVide);
                 root.add(image, k, j);
             }

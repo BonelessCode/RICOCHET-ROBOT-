@@ -1,23 +1,41 @@
+package jeu;
+
+import com.example.HelloApplication;
 import components.Cellule;
 import entities.Joueur;
 
 public class Jeu {
 
-    Input input;
-    Joueur joueur1;
-    Joueur joueur2;
-    int taillePlateau = 16;
+    static Input input;
+    static Joueur joueur1;
+    static Joueur joueur2;
+    static int taillePlateau = 16;
 
-    Cellule[][] plateau;
+    static Cellule[][] plateau;
 
-    public void genererPlateau(){
+    public static void main(String[] args) {
+        genererPlateau();
+//        HelloApplication.main(args);
+    }
+
+
+
+
+
+    public static void genererPlateau(){
         plateau = new Cellule[taillePlateau][taillePlateau];
+
+        for(int i =0;i<taillePlateau;i++){
+            for(int j =0;j<taillePlateau;j++){
+                plateau[i][j]=new Cellule();
+            }
+        }
+
+
 
 //      MURS CONTOUR
         for (int i=0;i<taillePlateau;i++){
             int dernierePosition = taillePlateau-1;
-
-
 
             plateau[0][i].setMurHaut(true);
             plateau[dernierePosition][i].setMurBas(true);
@@ -33,12 +51,12 @@ public class Jeu {
         plateau[0][11].setMurDroit(true);
 
         //        Murs à droite
-        plateau[3][taillePlateau].setMurBas(true);
-        plateau[8][taillePlateau].setMurBas(true);
+        plateau[3][taillePlateau-1].setMurBas(true);
+        plateau[8][taillePlateau-1].setMurBas(true);
 
         //        Murs en bas
-        plateau[taillePlateau][4].setMurDroit(true);
-        plateau[taillePlateau][13].setMurDroit(true);
+        plateau[taillePlateau-1][4].setMurDroit(true);
+        plateau[taillePlateau-1][13].setMurDroit(true);
 
         //        Murs à gauche
         plateau[3][0].setMurBas(true);
@@ -136,10 +154,4 @@ public class Jeu {
 
 
     }
-
-
-//      TODO: MURS INTERNES (AD et Richard)
-
-
-
 }
