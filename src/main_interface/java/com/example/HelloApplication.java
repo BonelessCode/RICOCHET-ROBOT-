@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import jeu.Jeu;
 
 import java.io.IOException;
 
@@ -30,26 +31,25 @@ public class HelloApplication extends Application {
         root.setVgap(1);
 
 
-        Image player = new Image(getClass().getResourceAsStream("/img/case_mur_1.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+        Image player = new Image(getClass().getResourceAsStream("/img/pion_bleu.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
 
 
         Image caseVide = new Image(getClass().getResourceAsStream("/img/case_vide.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//        Image caseMur1 = new Image(getClass().getResourceAsStream("/img/case_mur_1.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//        Image caseMur2 = new Image(getClass().getResourceAsStream("/img/case_mur_2.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//        Image caseMur3 = new Image(getClass().getResourceAsStream("/img/case_mur_3.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//        Image caseMur4 = new Image(getClass().getResourceAsStream("/img/case_mur_4.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//
-//
-//        Image caseMur12 = new Image(getClass().getResourceAsStream("/img/case_mur_12.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//        Image caseMur13 = new Image(getClass().getResourceAsStream("/img/case_mur_13.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//        Image caseMur14 = new Image(getClass().getResourceAsStream("/img/case_mur_14.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//
-//        Image caseMur23 = new Image(getClass().getResourceAsStream("/img/case_mur_23.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//        Image caseMur24 = new Image(getClass().getResourceAsStream("/img/case_mur_24.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//
-//        Image caseMur34 = new Image(getClass().getResourceAsStream("/img/case_mur_34.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
-//
-//
+        Image caseMur1 = new Image(getClass().getResourceAsStream("/img/case_mur1.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+        Image caseMur2 = new Image(getClass().getResourceAsStream("/img/case_mur2.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+        Image caseMur3 = new Image(getClass().getResourceAsStream("/img/case_mur3.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+        Image caseMur4 = new Image(getClass().getResourceAsStream("/img/case_mur4.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+
+
+        Image caseMur12 = new Image(getClass().getResourceAsStream("/img/case_mur12.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+
+        Image caseMur14 = new Image(getClass().getResourceAsStream("/img/case_mur14.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+
+        Image caseMur23 = new Image(getClass().getResourceAsStream("/img/case_mur23.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+
+        Image caseMur34 = new Image(getClass().getResourceAsStream("/img/case_mur34.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+        Image caseMur1234 = new Image(getClass().getResourceAsStream("/img/case_mur1234.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
+
 //        Image caseMur123 = new Image(getClass().getResourceAsStream("/img/case_mur_123.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
 //        Image caseMur124 = new Image(getClass().getResourceAsStream("/img/case_mur_124.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
 //        Image caseMur134 = new Image(getClass().getResourceAsStream("/img/case_mur_134.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
@@ -59,11 +59,53 @@ public class HelloApplication extends Application {
 //
 //        Image caseMur1234 = new Image(getClass().getResourceAsStream("/img/case_mur_1234.png"),SCREEN_SIZE/16,SCREEN_SIZE/16,false,false);
 
+        Cellule[][] plateau = Jeu.plateau;
+        ImageView image;
+        Cellule celluleActuelle;
+
+
 
         for (int k=0;k<WIDTH;k++){
             for (int j=0;j<WIDTH;j++) {
 
-                ImageView image = new ImageView(caseVide);
+                celluleActuelle = plateau[j][k];
+
+                if(!celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurGauche() ){
+                    image = new ImageView(caseVide);
+                }
+
+                else if(celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurGauche() ){
+                    image = new ImageView(caseMur4);
+                }
+                else if (celluleActuelle.isMurHaut() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurGauche()){
+                    image =new ImageView(caseMur2);
+                }
+                else if (celluleActuelle.isMurGauche() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurHaut()){
+                    image =new ImageView(caseMur1);
+                }
+                else if (celluleActuelle.isMurDroit() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurGauche()){
+                    image =new ImageView(caseMur3);
+                }
+                else if(celluleActuelle.isMurGauche() && celluleActuelle.isMurHaut() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurBas()){
+                    image = new ImageView(caseMur12);
+                }
+
+                else if(celluleActuelle.isMurGauche() && celluleActuelle.isMurBas() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurHaut()){
+                    image = new ImageView(caseMur14);
+                }
+                else if(celluleActuelle.isMurHaut() && celluleActuelle.isMurDroit() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurGauche()){
+                    image = new ImageView(caseMur23);
+                }
+
+                else if(celluleActuelle.isMurDroit() && celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurGauche()){
+                    image = new ImageView(caseMur34);
+                }
+                else{
+                    image = new ImageView(caseMur1234);
+                }
+
+
+
                 root.add(image, k, j);
             }
         }
@@ -71,7 +113,11 @@ public class HelloApplication extends Application {
         this.player = new ImageView(player);
         root.add(this.player, 0, 0);
 
-        animate(15,15);
+        animate(0,0,2,0);
+
+
+
+
 
 
 
@@ -95,7 +141,7 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    private void animate(int posx, int posy) {
+    private void animate(int posxDebut,int posyDebut,int posx, int posy) {
 
         //remove unit, make it invisible, and add it to desired location
         root.getChildren().remove(player);
@@ -107,7 +153,7 @@ public class HelloApplication extends Application {
 
         //return to original location
         root.getChildren().remove(player);
-        root.add(player, 0, 0);
+        root.add(player, posxDebut, posyDebut);
         player.setVisible(true);
 
         //apply translation to x,y of new location

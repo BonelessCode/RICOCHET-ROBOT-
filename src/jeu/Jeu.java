@@ -6,20 +6,42 @@ import entities.Joueur;
 
 public class Jeu {
 
+    int io = 0;
+
+
+    public int getIo() {
+        return io;
+    }
+
     static Input input;
     static Joueur joueur1;
     static Joueur joueur2;
     static int taillePlateau = 16;
 
-    static Cellule[][] plateau;
+    public static Cellule[][] plateau;
 
     public static void main(String[] args) {
         genererPlateau();
-//        HelloApplication.main(args);
+        HelloApplication.main(args);
     }
 
 
+    public int[] deplacement(int posxInitiale, int posyInitiale, int deplacement){
 
+        int[] listePosition = {posxInitiale,posyInitiale};
+
+        if(deplacement==1){
+            /*va à gauche*/
+
+        }
+        /*....*/
+
+
+
+
+        /*Renvoie la liste avec les nouvelles coordonnées*/
+        return listePosition;
+    }
 
 
     public static void genererPlateau(){
@@ -41,7 +63,7 @@ public class Jeu {
             plateau[dernierePosition][i].setMurBas(true);
 
             plateau[i][0].setMurGauche(true);
-            plateau[i][dernierePosition].setMurGauche(true);
+            plateau[i][dernierePosition].setMurDroit(true);
         }
 
 //      MURS PRES DU CONTOUR

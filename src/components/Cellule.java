@@ -24,5 +24,22 @@ public class Cellule {
         this.murGauche = murGauche;
     }
 
+
+    public boolean isMurHaut() {
+        return murHaut;
+    }
+
+    public boolean isMurDroit() {
+        return murDroit;
+    }
+
+    public boolean isMurBas() {
+        return murBas;
+    }
+
+    public boolean isMurGauche() {
+        return murGauche;
+    }
+
     Position position;
 }
