@@ -1,17 +1,16 @@
 package jeu;
 
-import com.example.HelloApplication;
+import com.example.projet_java.HelloApplication;
 import components.Cellule;
 import entities.Joueur;
+import entities.Robot;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 public class Jeu {
 
-    int io = 0;
-
-
-    public int getIo() {
-        return io;
-    }
 
     static Input input;
     static Joueur joueur1;
@@ -19,28 +18,75 @@ public class Jeu {
     static int taillePlateau = 16;
 
     public static Cellule[][] plateau;
+    public static Robot[] robots;
 
     public static void main(String[] args) {
+
+//        genererMenu();
+
+
+        genererRobots();
         genererPlateau();
+
         HelloApplication.main(args);
     }
 
+    public static int[] deplacement(Robot robot,int choix){
+        int positionXBase = robot.getPositionX();
+        int positionYBase = robot.getPositionY();
 
-    public int[] deplacement(int posxInitiale, int posyInitiale, int deplacement){
 
-        int[] listePosition = {posxInitiale,posyInitiale};
+        System.out.println("choix : " + choix);
+        if(choix==1){
 
-        if(deplacement==1){
-            /*va à gauche*/
+            while(!plateau[positionYBase][positionXBase].isMurGauche() && !plateau[positionYBase][positionXBase-1].isMurDroit()){
+                positionXBase-=1;;
+            }
+        }
+
+        else if(choix==2){
+
+            while(!plateau[positionYBase][positionXBase].isMurHaut() && !plateau[positionYBase-1][positionXBase].isMurBas()){
+                positionYBase-=1;
+            }
+        }
+        else if (choix==3){
+            while(!plateau[positionYBase][positionXBase].isMurDroit() && !plateau[positionYBase][positionXBase+1].isMurGauche()){
+                positionXBase+=1;
+            }
 
         }
-        /*....*/
+        else if (choix==4){
+            while(!plateau[positionYBase][positionXBase].isMurBas() && !plateau[positionYBase+1][positionXBase].isMurHaut()){
+                positionYBase+=1;
+            }
+        }
+
+        int[] listPosition = {positionXBase,positionYBase};
+        return listPosition;
+    }
 
 
 
 
-        /*Renvoie la liste avec les nouvelles coordonnées*/
-        return listePosition;
+
+
+
+
+
+    private static void genererRobots() {
+        robots = new Robot[4];
+        Random random = new Random();
+        int x;
+        int y;
+
+        List<String> couleurs = List.of("r","v","b","j");
+
+        for (int i=0; i<4;i++){
+            x = random.nextInt(0,taillePlateau-1);
+            y = random.nextInt(0,taillePlateau-1);
+            robots[i] = new Robot(x,y,couleurs.get(i));
+        }
     }
 
 
@@ -163,17 +209,8 @@ public class Jeu {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
+
 }

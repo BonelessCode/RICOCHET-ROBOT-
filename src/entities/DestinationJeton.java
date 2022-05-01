@@ -1,5 +1,6 @@
 package entities;
 
 public class DestinationJeton {
-    String couleur;
+    String path;
+    int id;
 }

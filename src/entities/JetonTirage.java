@@ -1,5 +1,6 @@
 package entities;
 
 public class JetonTirage {
-    String couleur;
+    String path;
+    int id;
 }
