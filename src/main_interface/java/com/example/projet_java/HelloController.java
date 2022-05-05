@@ -1,6 +1,7 @@
 package com.example.projet_java;
 
 import components.Cellule;
+import entities.DestinationJeton;
 import entities.Robot;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -70,6 +71,8 @@ public class HelloController {
     Image robotVert = new Image(getClass().getResourceAsStream("/img/robot_vert.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
 
     Image robotBleu = new Image(getClass().getResourceAsStream("/img/robot_bleu.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
+
+    Image jetonBleuCercle = new Image(getClass().getResourceAsStream("/img/jetonBleuCercle.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
 
     @FXML
     private Label nombreJoueur;
@@ -141,6 +144,14 @@ public class HelloController {
                 });
 
                 root.add(imageRobots,robot.getPositionX(),robot.getPositionY());
+            }
+//
+
+            for (DestinationJeton destinationJeton : Jeu.destinationJetons) {
+
+                image = new ImageView(jetonBleuCercle);
+
+                root.add(image,destinationJeton.getPosx(),destinationJeton.getPosy());
             }
 
 
