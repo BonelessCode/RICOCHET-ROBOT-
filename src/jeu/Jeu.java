@@ -2,11 +2,13 @@ package jeu;
 
 import com.example.projet_java.HelloApplication;
 import components.Cellule;
+
 import entities.DestinationJeton;
+
+import entities.JetonTirage;
 import entities.Joueur;
 import entities.Robot;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -20,22 +22,28 @@ public class Jeu {
 
     public static Cellule[][] plateau;
     public static Robot[] robots;
+
     public static List<DestinationJeton> destinationJetons;
 
 
-    public static void main(String[] args) {
+    public static List<JetonTirage> jetons;
 
-//        genererMenu();
+    public static void main(String[] args) {
 
 
         genererRobots();
         genererPlateau();
         destinationJeton();
 
+        genererJetonTirage();
 
+        JetonTirage jeton = choisirJeton();
+
+        System.out.println(jeton);
 
         HelloApplication.main(args);
     }
+
 
     private static void destinationJeton() {
         DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1,11,6);
@@ -71,6 +79,39 @@ public class Jeu {
                 destinationJetonRougeTriangle,
                 destinationJetonRougeCarre,
                 destinationJetonRougePenta);
+
+    private static JetonTirage choisirJeton() {
+
+        int id = (int)(Math.random() * 17);
+        //System.out.println(id);
+        return jetons.get(id);
+    }
+
+
+    public static void genererJetonTirage(){
+
+        JetonTirage jeton1 = new JetonTirage(1);
+        JetonTirage jeton2 = new JetonTirage(2);
+        JetonTirage jeton3 =new JetonTirage(3);
+        JetonTirage jeton4 = new JetonTirage(4);
+        JetonTirage jeton5 = new JetonTirage(5);
+        JetonTirage jeton6 = new JetonTirage(6);
+        JetonTirage jeton7 = new JetonTirage(7);
+        JetonTirage jeton8 = new JetonTirage(8);
+        JetonTirage jeton9 = new JetonTirage(9);
+        JetonTirage jeton10 = new JetonTirage(10);
+        JetonTirage jeton11 = new JetonTirage(11);
+        JetonTirage jeton12 = new JetonTirage(12);
+        JetonTirage jeton13 = new JetonTirage(13);
+        JetonTirage jeton14 = new JetonTirage(14);
+        JetonTirage jeton15 = new JetonTirage(15);
+        JetonTirage jeton16 = new JetonTirage(16);
+        JetonTirage jeton17 = new JetonTirage(17);
+
+        jetons = List.of(jeton1, jeton2, jeton3, jeton4, jeton5, jeton6 ,jeton7 ,jeton8 ,jeton9 ,jeton10 ,jeton11 ,jeton12 ,jeton13 ,jeton14 ,jeton15 ,jeton16 ,jeton17);
+
+
+
 
     }
 
@@ -108,12 +149,6 @@ public class Jeu {
         int[] listPosition = {positionXBase,positionYBase};
         return listPosition;
     }
-
-
-
-
-
-
 
 
 
