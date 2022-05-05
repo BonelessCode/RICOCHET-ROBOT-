@@ -2,6 +2,7 @@ package jeu;
 
 import com.example.projet_java.HelloApplication;
 import components.Cellule;
+import entities.DestinationJeton;
 import entities.Joueur;
 import entities.Robot;
 
@@ -19,6 +20,8 @@ public class Jeu {
 
     public static Cellule[][] plateau;
     public static Robot[] robots;
+    public static List<DestinationJeton> destinationJetons;
+
 
     public static void main(String[] args) {
 
@@ -27,8 +30,48 @@ public class Jeu {
 
         genererRobots();
         genererPlateau();
+        destinationJeton();
+
+
 
         HelloApplication.main(args);
+    }
+
+    private static void destinationJeton() {
+        DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1,11,6);
+        DestinationJeton destinationJetonJauneTriangle = new DestinationJeton(2,1,6);
+        DestinationJeton destinationJetonJauneCarre = new DestinationJeton(3,6,14);
+        DestinationJeton destinationJetonJaunePenta = new DestinationJeton(4,9,12);
+        DestinationJeton destinationJetonBleuCercle = new DestinationJeton(5,5,1);
+        DestinationJeton destinationJetonBleuTriangle = new DestinationJeton(6,9,1);
+        DestinationJeton destinationJetonBleuCarre = new DestinationJeton(7,11,9);
+        DestinationJeton destinationJetonBleuPenta = new DestinationJeton(8,2,10);
+        DestinationJeton destinationJetonVertCercle = new DestinationJeton(9,4,13);
+        DestinationJeton destinationJetonVertTriangle = new DestinationJeton(10,12,14);
+        DestinationJeton destinationJetonVertCarre = new DestinationJeton(11,6,5);
+        DestinationJeton destinationJetonVertPenta = new DestinationJeton(12,14,5);
+        DestinationJeton destinationJetonRougeCercle = new DestinationJeton(13,14,11);
+        DestinationJeton destinationJetonRougeTriangle = new DestinationJeton(14,5,8);
+        DestinationJeton destinationJetonRougeCarre = new DestinationJeton(15,13,1);
+        DestinationJeton destinationJetonRougePenta = new DestinationJeton(16,3,4);
+
+        destinationJetons = List.of(destinationJetonJauneCercle,
+                destinationJetonJauneTriangle,
+                destinationJetonJauneCarre,
+                destinationJetonJaunePenta,
+                destinationJetonBleuCercle,
+                destinationJetonBleuTriangle,
+                destinationJetonBleuCarre,
+                destinationJetonBleuPenta,
+                destinationJetonVertCercle,
+                destinationJetonVertTriangle,
+                destinationJetonVertCarre,
+                destinationJetonVertPenta,
+                destinationJetonRougeCercle,
+                destinationJetonRougeTriangle,
+                destinationJetonRougeCarre,
+                destinationJetonRougePenta);
+
     }
 
     public static int[] deplacement(Robot robot,int choix){
