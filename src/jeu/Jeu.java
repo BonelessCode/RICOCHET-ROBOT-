@@ -58,22 +58,22 @@ public class Jeu {
 
 
 
-        DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1, 11, 6,"JauneCercle");
-        DestinationJeton destinationJetonJauneTriangle = new DestinationJeton(2, 1, 6,"JauneTriangle");
-        DestinationJeton destinationJetonJauneCarre = new DestinationJeton(3, 6, 14,"JauneCarre");
-        DestinationJeton destinationJetonJauneHexa = new DestinationJeton(4, 9, 12,"JauneHexa");
-        DestinationJeton destinationJetonBleuCercle = new DestinationJeton(5, 5, 1,"BleuCercle");
-        DestinationJeton destinationJetonBleuTriangle = new DestinationJeton(6, 9, 1,"BleuTriangle");
-        DestinationJeton destinationJetonBleuCarre = new DestinationJeton(7, 11, 9,"BleuCarre");
-        DestinationJeton destinationJetonBleuHexa = new DestinationJeton(8, 2, 10,"BleuHexa");
-        DestinationJeton destinationJetonVertCercle = new DestinationJeton(9, 4, 13,"VertCercle");
-        DestinationJeton destinationJetonVertTriangle = new DestinationJeton(10, 12, 14,"VertTriangle");
-        DestinationJeton destinationJetonVertCarre = new DestinationJeton(11, 6, 5,"VertCarre");
-        DestinationJeton destinationJetonVertHexa = new DestinationJeton(12, 14, 5,"VertHexa");
-        DestinationJeton destinationJetonRougeCercle = new DestinationJeton(13, 14, 11,"RougeCercle");
-        DestinationJeton destinationJetonRougeTriangle = new DestinationJeton(14, 5, 8,"RougeTriangle");
-        DestinationJeton destinationJetonRougeCarre = new DestinationJeton(15, 13, 1,"RougeCarre");
-        DestinationJeton destinationJetonRougeHexa = new DestinationJeton(16, 3, 4,"RougeHexa");
+        DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1, 11, 6,"JauneCercle", "j");
+        DestinationJeton destinationJetonJauneTriangle = new DestinationJeton(2, 1, 6,"JauneTriangle", "j");
+        DestinationJeton destinationJetonJauneCarre = new DestinationJeton(3, 6, 14,"JauneCarre", "j");
+        DestinationJeton destinationJetonJauneHexa = new DestinationJeton(4, 9, 12,"JauneHexa", "j");
+        DestinationJeton destinationJetonBleuCercle = new DestinationJeton(5, 5, 1,"BleuCercle", "v");
+        DestinationJeton destinationJetonBleuTriangle = new DestinationJeton(6, 9, 1,"BleuTriangle", "v");
+        DestinationJeton destinationJetonBleuCarre = new DestinationJeton(7, 11, 9,"BleuCarre", "v");
+        DestinationJeton destinationJetonBleuHexa = new DestinationJeton(8, 2, 10,"BleuHexa", "v");
+        DestinationJeton destinationJetonVertCercle = new DestinationJeton(9, 4, 13,"VertCercle", "b");
+        DestinationJeton destinationJetonVertTriangle = new DestinationJeton(10, 12, 14,"VertTriangle", "b");
+        DestinationJeton destinationJetonVertCarre = new DestinationJeton(11, 6, 5,"VertCarre", "b");
+        DestinationJeton destinationJetonVertHexa = new DestinationJeton(12, 14, 5,"VertHexa", "b");
+        DestinationJeton destinationJetonRougeCercle = new DestinationJeton(13, 14, 11,"RougeCercle", "r");
+        DestinationJeton destinationJetonRougeTriangle = new DestinationJeton(14, 5, 8,"RougeTriangle" , "r");
+        DestinationJeton destinationJetonRougeCarre = new DestinationJeton(15, 13, 1,"RougeCarre", "r");
+        DestinationJeton destinationJetonRougeHexa = new DestinationJeton(16, 3, 4,"RougeHexa", "r");
 
 
         destinationJetons = List.of(destinationJetonJauneCercle,
