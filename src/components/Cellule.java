@@ -8,26 +8,6 @@ public class Cellule {
     boolean murBas;
     boolean murGauche;
 
-    //Points objectifs
-    boolean objectifRondBleu;
-    boolean objectifCarreRouge;
-    boolean objectifMulticolore;
-    boolean objectifTriangleBleu;
-    boolean objectifLosangeRouge;
-    boolean objectifCarreVert;
-    boolean objectifLosangeVert;
-    boolean objectifTriangleJaune;
-    boolean objectifRondJaune;
-    boolean objectifTriangleRouge;
-    boolean objectifCarreBleu;
-    boolean objectifLosangeBleu;
-    boolean objectifRondRouge;
-    boolean objectifLosangeJaune;
-    boolean objectifRondVert;
-    boolean objectifCarreJaune;
-    boolean objectifTriangleVert;
-
-
 
     public void setMurHaut(boolean murHaut) {
         this.murHaut = murHaut;

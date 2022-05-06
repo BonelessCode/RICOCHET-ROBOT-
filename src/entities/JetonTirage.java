@@ -2,7 +2,7 @@ package entities;
 
 public class JetonTirage {
     String path;
-    int id;
+    public int id;
 
 
     public JetonTirage(int id,String path) {
@@ -13,5 +13,13 @@ public class JetonTirage {
 
     public int getId() {
         return id;
+    }
+
+    public int getId(int i){
+        return this.id;
+    }
+
+    public String getPath() {
+        return path;
     }
 }
