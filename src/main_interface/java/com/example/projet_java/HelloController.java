@@ -28,7 +28,7 @@ public class HelloController {
     @FXML
     int nombreJoueurs=1;
     public static final int WIDTH = 16;
-    public static final int SCREEN_SIZE = 860;
+    public static final int SCREEN_SIZE = 790;
 
 
     GridPane root;
@@ -168,23 +168,35 @@ public class HelloController {
                     switch (keyEvent.getCode()) {
                         case UP:
                             nouvellePosition = Jeu.deplacement(robotSelected,2);
+                            Jeu.nbrCoup +=1;
+                            System.out.println("Nombre de coup :" +Jeu.nbrCoup);
                             break;
 
                         case DOWN:
                             nouvellePosition = Jeu.deplacement(robotSelected,4);
+                            Jeu.nbrCoup +=1;
+                            System.out.println("Nombre de coup :" +Jeu.nbrCoup);
                             break;
+
 
                         case LEFT:
                             nouvellePosition = Jeu.deplacement(robotSelected,1);
+                            Jeu.nbrCoup +=1;
+                            System.out.println("Nombre de coup :" +Jeu.nbrCoup);
                             break;
 
                         case RIGHT:
                             nouvellePosition = Jeu.deplacement(robotSelected,3);
+                            Jeu.nbrCoup +=1;
+                            System.out.println("Nombre de coup :" +Jeu.nbrCoup);
                             break;
                         default:
                             nouvellePosition = new int[]{0, 0};
+                            Jeu.nbrCoup +=1;
+                            System.out.println("Nombre de coup :" + Jeu.nbrCoup);
                             break;
                     }
+
 
                     System.out.println("Position actuelle : "+robotSelected.getPositionX()+" "+robotSelected.getPositionY());
                     System.out.println("Nouvelle position : "+nouvellePosition[0]+ " "+ nouvellePosition[1]);
@@ -193,6 +205,8 @@ public class HelloController {
                     animate(imageSelectionnee,robotSelected.getPositionX(),robotSelected.getPositionY(),nouvellePosition[0],nouvellePosition[1]);
                     robotSelected.setPositionX(nouvellePosition[0]);
                     robotSelected.setPositionY(nouvellePosition[1]);
+
+                    Jeu.verifJeton(robotSelected);
                 }
 
 
