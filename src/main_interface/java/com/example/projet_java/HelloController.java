@@ -63,7 +63,7 @@ public class HelloController {
 
 
 
-    Image jetonBleuCercle = new Image(getClass().getResourceAsStream("/img/jetonBleuCercle.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
+
 
     @FXML
     private Label nombreJoueur;
@@ -139,7 +139,7 @@ public class HelloController {
 
             for (DestinationJeton destinationJeton : Jeu.destinationJetons) {
 
-                image = new ImageView(jetonBleuCercle); // TODO : CHANGER PAR PATH
+                image = new ImageView(new Image(getClass().getResourceAsStream("/img/"+destinationJeton.getPath()+".png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false)); // TODO : CHANGER PAR PATH
 
                 root.add(image,destinationJeton.getPosx(),destinationJeton.getPosy());
             }

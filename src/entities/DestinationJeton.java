@@ -21,4 +21,9 @@ public class DestinationJeton {
     public int getPosy() {
         return posy;
     }
+
+
+    public String getPath() {
+        return path;
+    }
 }

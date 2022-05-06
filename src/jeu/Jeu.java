@@ -45,7 +45,7 @@ public class Jeu {
 
 
     private static void destinationJeton() {
-        // TODO : AJOUTER PATHS
+
 
         DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1, 11, 6,"JauneCercle");
         DestinationJeton destinationJetonJauneTriangle = new DestinationJeton(2, 1, 6,"JauneTriangle");
