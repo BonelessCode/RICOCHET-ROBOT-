@@ -5,13 +5,16 @@ public class DestinationJeton {
     int id;
     int posx;
     int posy;
+    String couleur;
 
-    public DestinationJeton(int id, int posx, int posy, String path) {
+    public DestinationJeton(int id, int posx, int posy, String path,String couleur) {
 
         this.id = id;
         this.posx = posx;
         this.posy = posy;
         this.path = path;
+        this.couleur = couleur;
+
     }
 
     public int getPosx() {
@@ -25,5 +28,14 @@ public class DestinationJeton {
 
     public String getPath() {
         return path;
+
+    }
+
+    public String getCouleur() {
+        return couleur;
+    }
+
+    public int getId() {
+        return id;
     }
 }

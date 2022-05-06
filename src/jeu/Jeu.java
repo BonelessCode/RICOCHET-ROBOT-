@@ -27,7 +27,11 @@ public class Jeu {
     public static List<DestinationJeton> destinationJetons;
 
     public static JetonTirage jeton;
+
     public static List<JetonTirage> jetons;
+
+    public static int nbrCoup =0;
+
 
     public static void main(String[] args) {
         genererRobots();
@@ -36,15 +40,22 @@ public class Jeu {
 
         genererJetonTirage();
 
+
         jeton = choisirJeton();
 
-        System.out.println(jeton);
+
+
+        jeton = choisirJeton();
+        System.out.println(jeton.getId());
+
+
 
         HelloApplication.main(args);
     }
 
 
     private static void destinationJeton() {
+
 
 
         DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1, 11, 6,"JauneCercle");
@@ -63,6 +74,7 @@ public class Jeu {
         DestinationJeton destinationJetonRougeTriangle = new DestinationJeton(14, 5, 8,"RougeTriangle");
         DestinationJeton destinationJetonRougeCarre = new DestinationJeton(15, 13, 1,"RougeCarre");
         DestinationJeton destinationJetonRougeHexa = new DestinationJeton(16, 3, 4,"RougeHexa");
+
 
         destinationJetons = List.of(destinationJetonJauneCercle,
                 destinationJetonJauneTriangle,
@@ -103,6 +115,8 @@ public class Jeu {
                 "RougeCarre",
                 "RougeHexa");
 
+        List<String> listeCouleur = List.of("j","j","j","j","b","b","b","b","v","v","v","v","r","r","r","r");
+
         for (int i =0;i<16;i++){
             JetonTirage jeton = new JetonTirage(i,paths.get(i));
             jetons.add(jeton);
@@ -133,6 +147,7 @@ public class Jeu {
 
     }
 
+
     public static JetonTirage choisirJeton() {
 
         int id = (int)(Math.random() * 15);
@@ -140,16 +155,20 @@ public class Jeu {
         return jetons.get(id);
     }
 
+
     public static int[] deplacement(Robot robot,int choix){
         int positionXBase = robot.getPositionX();
         int positionYBase = robot.getPositionY();
+
 
 
         System.out.println("choix : " + choix);
         if(choix==1){
             while(!plateau[positionYBase][positionXBase].isMurGauche() && !plateau[positionYBase][positionXBase-1].isMurDroit() && !isObstacle(choix,robot,positionXBase,positionYBase)){
                 positionXBase-=1;
+
             }
+
         }
 
         else if(choix==2){
@@ -157,6 +176,7 @@ public class Jeu {
             while(!plateau[positionYBase][positionXBase].isMurHaut() && !plateau[positionYBase-1][positionXBase].isMurBas()  && !isObstacle(choix,robot,positionXBase,positionYBase)){
                 positionYBase-=1;
             }
+
         }
         else if (choix==3){
             while(!plateau[positionYBase][positionXBase].isMurDroit() && !plateau[positionYBase][positionXBase+1].isMurGauche()  && !isObstacle(choix,robot,positionXBase,positionYBase)){
@@ -172,7 +192,33 @@ public class Jeu {
 
         int[] listPosition = {positionXBase,positionYBase};
         return listPosition;
+
     }
+
+
+   public static void verifJeton(Robot robot){
+       boolean M;
+       boolean L;
+
+        for (DestinationJeton destinationJeton : destinationJetons){
+
+            L = destinationJeton.getPosx() == robot.getPositionX();
+
+            M = destinationJeton.getPosy() == robot.getPositionY();
+            if ( L && M){
+                System.out.println("position OK");
+                if (robot.getCouleur().equals(destinationJeton.getCouleur())){
+                    System.out.println("couleur OK");
+                    if (jeton.getId() == destinationJeton.getId()){
+                        System.out.println("AD TROP FORT");
+                    }
+                }
+            }
+        }
+
+   }
+
+
 
     private static boolean isObstacle(int choix,Robot robot,int posx,int posy){
         for (Robot otherRobot : robots){
