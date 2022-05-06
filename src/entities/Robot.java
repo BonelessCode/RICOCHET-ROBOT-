@@ -10,18 +10,22 @@ public class Robot {
 
     String couleur;
 
+    String path;
+
     int positionBaseX;
     int positionBaseY;
 
     int positionX;
     int positionY;
 
-    public Robot(int positionX, int positionY, String couleur) {
+    public Robot(int positionX, int positionY, String couleur, String path) {
         this.positionBaseX = positionX;
         this.positionBaseY = positionY;
 
         this.positionX = positionX;
         this.positionY = positionY;
+
+        this.path = path;
 
         this.couleur = couleur;
     }
@@ -40,5 +44,9 @@ public class Robot {
 
     public int getPositionY() {
         return positionY;
+    }
+
+    public String getPath() {
+        return path;
     }
 }
