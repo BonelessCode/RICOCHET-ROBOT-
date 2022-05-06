@@ -6,12 +6,12 @@ public class DestinationJeton {
     int posx;
     int posy;
 
-    public DestinationJeton(int id, int posx, int posy) {
+    public DestinationJeton(int id, int posx, int posy, String path) {
 
         this.id = id;
         this.posx = posx;
         this.posy = posy;
-
+        this.path = path;
     }
 
     public int getPosx() {

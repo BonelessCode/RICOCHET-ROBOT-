@@ -27,14 +27,12 @@ import static java.lang.Math.abs;
 public class HelloController {
     @FXML
     int nombreJoueurs=1;
-    public static final int TILE_SIZE = 100;
     public static final int WIDTH = 16;
     public static final int SCREEN_SIZE = 860;
 
 
     GridPane root;
 
-    ImageView player;
 
     Label labelJoueurs;
 
@@ -64,13 +62,6 @@ public class HelloController {
     Image caseMur1234 = new Image(getClass().getResourceAsStream("/img/case_mur1234.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
 
 
-    Image robotRouge = new Image(getClass().getResourceAsStream("/img/robot_rouge.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
-
-    Image robotJaune = new Image(getClass().getResourceAsStream("/img/robot_jaune.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
-
-    Image robotVert = new Image(getClass().getResourceAsStream("/img/robot_vert.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
-
-    Image robotBleu = new Image(getClass().getResourceAsStream("/img/robot_bleu.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
 
     Image jetonBleuCercle = new Image(getClass().getResourceAsStream("/img/jetonBleuCercle.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
 
@@ -83,8 +74,6 @@ public class HelloController {
 
 
         Stage stage = new Stage();
-
-
 
         root = new GridPane();
 
@@ -132,9 +121,10 @@ public class HelloController {
 
 
 
+            // CREER
             for (Robot robot : Jeu.robots) {
 
-                ImageView imageRobots = robotImage(robot);
+                ImageView imageRobots = new ImageView(new Image(getClass().getResourceAsStream("/img/"+robot.getPath()+".png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false));
 
 
                 imageRobots.setOnMouseClicked(mouseEvent -> {
@@ -149,7 +139,7 @@ public class HelloController {
 
             for (DestinationJeton destinationJeton : Jeu.destinationJetons) {
 
-                image = new ImageView(jetonBleuCercle);
+                image = new ImageView(jetonBleuCercle); // TODO : CHANGER PAR PATH
 
                 root.add(image,destinationJeton.getPosx(),destinationJeton.getPosy());
             }
@@ -210,28 +200,6 @@ public class HelloController {
 
         }
 
-    private ImageView robotImage(Robot robot) {
-        Image image;
-
-        String couleur = robot.getCouleur();
-
-        if(couleur.equals("v")){
-            image = robotVert;
-        }
-        else if (couleur.equals("r")){
-            image = robotRouge;
-        }
-        else if (couleur.equals("b")){
-            image = robotBleu;
-        }
-        else if (couleur.equals("j")){
-            image = robotJaune;
-        }
-        else{
-            image = pionDefaut;
-        }
-        return new ImageView(image);
-    }
 
 
     @FXML

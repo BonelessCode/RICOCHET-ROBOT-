@@ -9,6 +9,7 @@ import entities.JetonTirage;
 import entities.Joueur;
 import entities.Robot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -29,8 +30,6 @@ public class Jeu {
     public static List<JetonTirage> jetons;
 
     public static void main(String[] args) {
-
-
         genererRobots();
         genererPlateau();
         destinationJeton();
@@ -46,22 +45,24 @@ public class Jeu {
 
 
     private static void destinationJeton() {
-        DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1,11,6);
-        DestinationJeton destinationJetonJauneTriangle = new DestinationJeton(2,1,6);
-        DestinationJeton destinationJetonJauneCarre = new DestinationJeton(3,6,14);
-        DestinationJeton destinationJetonJaunePenta = new DestinationJeton(4,9,12);
-        DestinationJeton destinationJetonBleuCercle = new DestinationJeton(5,5,1);
-        DestinationJeton destinationJetonBleuTriangle = new DestinationJeton(6,9,1);
-        DestinationJeton destinationJetonBleuCarre = new DestinationJeton(7,11,9);
-        DestinationJeton destinationJetonBleuPenta = new DestinationJeton(8,2,10);
-        DestinationJeton destinationJetonVertCercle = new DestinationJeton(9,4,13);
-        DestinationJeton destinationJetonVertTriangle = new DestinationJeton(10,12,14);
-        DestinationJeton destinationJetonVertCarre = new DestinationJeton(11,6,5);
-        DestinationJeton destinationJetonVertPenta = new DestinationJeton(12,14,5);
-        DestinationJeton destinationJetonRougeCercle = new DestinationJeton(13,14,11);
-        DestinationJeton destinationJetonRougeTriangle = new DestinationJeton(14,5,8);
-        DestinationJeton destinationJetonRougeCarre = new DestinationJeton(15,13,1);
-        DestinationJeton destinationJetonRougePenta = new DestinationJeton(16,3,4);
+        // TODO : AJOUTER PATHS
+
+        DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1, 11, 6,"JauneCercle");
+        DestinationJeton destinationJetonJauneTriangle = new DestinationJeton(2, 1, 6,"JauneTriangle");
+        DestinationJeton destinationJetonJauneCarre = new DestinationJeton(3, 6, 14,"JauneCarre");
+        DestinationJeton destinationJetonJaunePenta = new DestinationJeton(4, 9, 12,"JaunePenta");
+        DestinationJeton destinationJetonBleuCercle = new DestinationJeton(5, 5, 1,"BleuCercle");
+        DestinationJeton destinationJetonBleuTriangle = new DestinationJeton(6, 9, 1,"BleuTriangle");
+        DestinationJeton destinationJetonBleuCarre = new DestinationJeton(7, 11, 9,"BleuCarre");
+        DestinationJeton destinationJetonBleuPenta = new DestinationJeton(8, 2, 10,"BleuPenta");
+        DestinationJeton destinationJetonVertCercle = new DestinationJeton(9, 4, 13,"VertCercle");
+        DestinationJeton destinationJetonVertTriangle = new DestinationJeton(10, 12, 14,"VertTriangle");
+        DestinationJeton destinationJetonVertCarre = new DestinationJeton(11, 6, 5,"VertCarre");
+        DestinationJeton destinationJetonVertPenta = new DestinationJeton(12, 14, 5,"VertPenta");
+        DestinationJeton destinationJetonRougeCercle = new DestinationJeton(13, 14, 11,"RougeCercle");
+        DestinationJeton destinationJetonRougeTriangle = new DestinationJeton(14, 5, 8,"RougeTriangle");
+        DestinationJeton destinationJetonRougeCarre = new DestinationJeton(15, 13, 1,"RougeCarre");
+        DestinationJeton destinationJetonRougePenta = new DestinationJeton(16, 3, 4,"RougePenta");
 
         destinationJetons = List.of(destinationJetonJauneCercle,
                 destinationJetonJauneTriangle,
@@ -79,36 +80,59 @@ public class Jeu {
                 destinationJetonRougeTriangle,
                 destinationJetonRougeCarre,
                 destinationJetonRougePenta);
+    }
 
     private static JetonTirage choisirJeton() {
 
-        int id = (int)(Math.random() * 17);
-        //System.out.println(id);
+        int id = (int)(Math.random() * 15);
+
         return jetons.get(id);
     }
 
 
     public static void genererJetonTirage(){
+        jetons = new ArrayList<>();
+        List<String> paths = List.of("JauneCercle",
+                "JauneTriangle",
+                "JauneCarre",
+                "JaunePenta",
+                "BleuCercle",
+                "BleuTriangle",
+                "BleuCarre",
+                "BleuPenta",
+                "VertCercle",
+                "VertTriangle",
+                "VertCarre",
+                "VertPenta",
+                "RougeCercle",
+                "RougeTriangle",
+                "RougeCarre",
+                "RougePenta");
 
-        JetonTirage jeton1 = new JetonTirage(1);
-        JetonTirage jeton2 = new JetonTirage(2);
-        JetonTirage jeton3 =new JetonTirage(3);
-        JetonTirage jeton4 = new JetonTirage(4);
-        JetonTirage jeton5 = new JetonTirage(5);
-        JetonTirage jeton6 = new JetonTirage(6);
-        JetonTirage jeton7 = new JetonTirage(7);
-        JetonTirage jeton8 = new JetonTirage(8);
-        JetonTirage jeton9 = new JetonTirage(9);
-        JetonTirage jeton10 = new JetonTirage(10);
-        JetonTirage jeton11 = new JetonTirage(11);
-        JetonTirage jeton12 = new JetonTirage(12);
-        JetonTirage jeton13 = new JetonTirage(13);
-        JetonTirage jeton14 = new JetonTirage(14);
-        JetonTirage jeton15 = new JetonTirage(15);
-        JetonTirage jeton16 = new JetonTirage(16);
-        JetonTirage jeton17 = new JetonTirage(17);
+        for (int i =0;i<16;i++){
+            JetonTirage jeton = new JetonTirage(i,paths.get(i));
+            jetons.add(jeton);
+        }
 
-        jetons = List.of(jeton1, jeton2, jeton3, jeton4, jeton5, jeton6 ,jeton7 ,jeton8 ,jeton9 ,jeton10 ,jeton11 ,jeton12 ,jeton13 ,jeton14 ,jeton15 ,jeton16 ,jeton17);
+//        JetonTirage jeton1 = new JetonTirage(1);
+//        JetonTirage jeton2 = new JetonTirage(2);
+//        JetonTirage jeton3 =new JetonTirage(3);
+//        JetonTirage jeton4 = new JetonTirage(4);
+//        JetonTirage jeton5 = new JetonTirage(5);
+//        JetonTirage jeton6 = new JetonTirage(6);
+//        JetonTirage jeton7 = new JetonTirage(7);
+//        JetonTirage jeton8 = new JetonTirage(8);
+//        JetonTirage jeton9 = new JetonTirage(9);
+//        JetonTirage jeton10 = new JetonTirage(10);
+//        JetonTirage jeton11 = new JetonTirage(11);
+//        JetonTirage jeton12 = new JetonTirage(12);
+//        JetonTirage jeton13 = new JetonTirage(13);
+//        JetonTirage jeton14 = new JetonTirage(14);
+//        JetonTirage jeton15 = new JetonTirage(15);
+//        JetonTirage jeton16 = new JetonTirage(16);
+//        JetonTirage jeton17 = new JetonTirage(17);
+//
+//        jetons = List.of(jeton1, jeton2, jeton3, jeton4, jeton5, jeton6 ,jeton7 ,jeton8 ,jeton9 ,jeton10 ,jeton11 ,jeton12 ,jeton13 ,jeton14 ,jeton15 ,jeton16 ,jeton17);
 
 
 
@@ -122,32 +146,61 @@ public class Jeu {
 
         System.out.println("choix : " + choix);
         if(choix==1){
-
-            while(!plateau[positionYBase][positionXBase].isMurGauche() && !plateau[positionYBase][positionXBase-1].isMurDroit()){
-                positionXBase-=1;;
+            while(!plateau[positionYBase][positionXBase].isMurGauche() && !plateau[positionYBase][positionXBase-1].isMurDroit() && !isObstacle(choix,robot,positionXBase,positionYBase)){
+                positionXBase-=1;
             }
         }
 
         else if(choix==2){
 
-            while(!plateau[positionYBase][positionXBase].isMurHaut() && !plateau[positionYBase-1][positionXBase].isMurBas()){
+            while(!plateau[positionYBase][positionXBase].isMurHaut() && !plateau[positionYBase-1][positionXBase].isMurBas()  && !isObstacle(choix,robot,positionXBase,positionYBase)){
                 positionYBase-=1;
             }
         }
         else if (choix==3){
-            while(!plateau[positionYBase][positionXBase].isMurDroit() && !plateau[positionYBase][positionXBase+1].isMurGauche()){
+            while(!plateau[positionYBase][positionXBase].isMurDroit() && !plateau[positionYBase][positionXBase+1].isMurGauche()  && !isObstacle(choix,robot,positionXBase,positionYBase)){
                 positionXBase+=1;
             }
 
         }
         else if (choix==4){
-            while(!plateau[positionYBase][positionXBase].isMurBas() && !plateau[positionYBase+1][positionXBase].isMurHaut()){
+            while(!plateau[positionYBase][positionXBase].isMurBas() && !plateau[positionYBase+1][positionXBase].isMurHaut()  && !isObstacle(choix,robot,positionXBase,positionYBase)){
                 positionYBase+=1;
             }
         }
 
         int[] listPosition = {positionXBase,positionYBase};
         return listPosition;
+    }
+
+    private static boolean isObstacle(int choix,Robot robot,int posx,int posy){
+        for (Robot otherRobot : robots){
+            if(otherRobot != robot){
+                switch (choix){
+                    case 1:
+                        if(otherRobot.getPositionX()==posx-1 && otherRobot.getPositionY()==posy){
+                            return true;
+                        }
+                        break;
+                    case 2:
+                        if(otherRobot.getPositionX()==posx && otherRobot.getPositionY()==posy-1){
+                            return true;
+                        }
+                        break;
+                    case 3:
+                        if(otherRobot.getPositionX()==posx+1 && otherRobot.getPositionY()==posy){
+                            return true;
+                        }
+                        break;
+                    case 4:
+                        if(otherRobot.getPositionX()==posx && otherRobot.getPositionY()==posy+1){
+                            return true;
+                        }
+                        break;
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -159,11 +212,12 @@ public class Jeu {
         int y;
 
         List<String> couleurs = List.of("r","v","b","j");
+        List<String> paths = List.of("robot_rouge","robot_vert","robot_bleu","robot_jaune");
 
         for (int i=0; i<4;i++){
             x = random.nextInt(0,taillePlateau-1);
             y = random.nextInt(0,taillePlateau-1);
-            robots[i] = new Robot(x,y,couleurs.get(i));
+            robots[i] = new Robot(x,y,couleurs.get(i),paths.get(i));
         }
     }
 
