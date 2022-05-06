@@ -26,7 +26,7 @@ public class Jeu {
 
     public static List<DestinationJeton> destinationJetons;
 
-
+    public static JetonTirage jeton;
     public static List<JetonTirage> jetons;
 
     public static void main(String[] args) {
@@ -36,7 +36,7 @@ public class Jeu {
 
         genererJetonTirage();
 
-        JetonTirage jeton = choisirJeton();
+        jeton = choisirJeton();
 
         System.out.println(jeton);
 
@@ -50,44 +50,38 @@ public class Jeu {
         DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1, 11, 6,"JauneCercle");
         DestinationJeton destinationJetonJauneTriangle = new DestinationJeton(2, 1, 6,"JauneTriangle");
         DestinationJeton destinationJetonJauneCarre = new DestinationJeton(3, 6, 14,"JauneCarre");
-        DestinationJeton destinationJetonJaunePenta = new DestinationJeton(4, 9, 12,"JaunePenta");
+        DestinationJeton destinationJetonJauneHexa = new DestinationJeton(4, 9, 12,"JauneHexa");
         DestinationJeton destinationJetonBleuCercle = new DestinationJeton(5, 5, 1,"BleuCercle");
         DestinationJeton destinationJetonBleuTriangle = new DestinationJeton(6, 9, 1,"BleuTriangle");
         DestinationJeton destinationJetonBleuCarre = new DestinationJeton(7, 11, 9,"BleuCarre");
-        DestinationJeton destinationJetonBleuPenta = new DestinationJeton(8, 2, 10,"BleuPenta");
+        DestinationJeton destinationJetonBleuHexa = new DestinationJeton(8, 2, 10,"BleuHexa");
         DestinationJeton destinationJetonVertCercle = new DestinationJeton(9, 4, 13,"VertCercle");
         DestinationJeton destinationJetonVertTriangle = new DestinationJeton(10, 12, 14,"VertTriangle");
         DestinationJeton destinationJetonVertCarre = new DestinationJeton(11, 6, 5,"VertCarre");
-        DestinationJeton destinationJetonVertPenta = new DestinationJeton(12, 14, 5,"VertPenta");
+        DestinationJeton destinationJetonVertHexa = new DestinationJeton(12, 14, 5,"VertHexa");
         DestinationJeton destinationJetonRougeCercle = new DestinationJeton(13, 14, 11,"RougeCercle");
         DestinationJeton destinationJetonRougeTriangle = new DestinationJeton(14, 5, 8,"RougeTriangle");
         DestinationJeton destinationJetonRougeCarre = new DestinationJeton(15, 13, 1,"RougeCarre");
-        DestinationJeton destinationJetonRougePenta = new DestinationJeton(16, 3, 4,"RougePenta");
+        DestinationJeton destinationJetonRougeHexa = new DestinationJeton(16, 3, 4,"RougeHexa");
 
         destinationJetons = List.of(destinationJetonJauneCercle,
                 destinationJetonJauneTriangle,
                 destinationJetonJauneCarre,
-                destinationJetonJaunePenta,
+                destinationJetonJauneHexa,
                 destinationJetonBleuCercle,
                 destinationJetonBleuTriangle,
                 destinationJetonBleuCarre,
-                destinationJetonBleuPenta,
+                destinationJetonBleuHexa,
                 destinationJetonVertCercle,
                 destinationJetonVertTriangle,
                 destinationJetonVertCarre,
-                destinationJetonVertPenta,
+                destinationJetonVertHexa,
                 destinationJetonRougeCercle,
                 destinationJetonRougeTriangle,
                 destinationJetonRougeCarre,
-                destinationJetonRougePenta);
+                destinationJetonRougeHexa);
     }
 
-    private static JetonTirage choisirJeton() {
-
-        int id = (int)(Math.random() * 15);
-
-        return jetons.get(id);
-    }
 
 
     public static void genererJetonTirage(){
@@ -95,19 +89,19 @@ public class Jeu {
         List<String> paths = List.of("JauneCercle",
                 "JauneTriangle",
                 "JauneCarre",
-                "JaunePenta",
+                "JauneHexa",
                 "BleuCercle",
                 "BleuTriangle",
                 "BleuCarre",
-                "BleuPenta",
+                "BleuHexa",
                 "VertCercle",
                 "VertTriangle",
                 "VertCarre",
-                "VertPenta",
+                "VertHexa",
                 "RougeCercle",
                 "RougeTriangle",
                 "RougeCarre",
-                "RougePenta");
+                "RougeHexa");
 
         for (int i =0;i<16;i++){
             JetonTirage jeton = new JetonTirage(i,paths.get(i));
@@ -137,6 +131,13 @@ public class Jeu {
 
 
 
+    }
+
+    public static JetonTirage choisirJeton() {
+
+        int id = (int)(Math.random() * 15);
+
+        return jetons.get(id);
     }
 
     public static int[] deplacement(Robot robot,int choix){

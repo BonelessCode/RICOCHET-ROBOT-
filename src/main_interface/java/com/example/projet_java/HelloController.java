@@ -2,6 +2,7 @@ package com.example.projet_java;
 
 import components.Cellule;
 import entities.DestinationJeton;
+import entities.JetonTirage;
 import entities.Robot;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -22,13 +23,14 @@ import javafx.util.Duration;
 import jeu.Jeu;
 
 import static java.lang.Math.abs;
+import static jeu.Jeu.choisirJeton;
 
 
 public class HelloController {
     @FXML
     int nombreJoueurs=1;
     public static final int WIDTH = 16;
-    public static final int SCREEN_SIZE = 860;
+    public static final int SCREEN_SIZE = 760;
 
 
     GridPane root;
@@ -42,24 +44,24 @@ public class HelloController {
 
 
 
-    Image pionDefaut = new Image(getClass().getResourceAsStream("/img/pion_bleu.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
+    Image pionDefaut = new Image(getClass().getResourceAsStream("/img/pion_bleu.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
 
 
-    Image caseVide = new Image(getClass().getResourceAsStream("/img/case_vide.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
-    Image caseMur1 = new Image(getClass().getResourceAsStream("/img/case_mur1.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
-    Image caseMur2 = new Image(getClass().getResourceAsStream("/img/case_mur2.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
-    Image caseMur3 = new Image(getClass().getResourceAsStream("/img/case_mur3.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
-    Image caseMur4 = new Image(getClass().getResourceAsStream("/img/case_mur4.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
+    Image caseVide = new Image(getClass().getResourceAsStream("/img/case_vide.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
+    Image caseMur1 = new Image(getClass().getResourceAsStream("/img/case_mur1.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
+    Image caseMur2 = new Image(getClass().getResourceAsStream("/img/case_mur2.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
+    Image caseMur3 = new Image(getClass().getResourceAsStream("/img/case_mur3.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
+    Image caseMur4 = new Image(getClass().getResourceAsStream("/img/case_mur4.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
 
 
-    Image caseMur12 = new Image(getClass().getResourceAsStream("/img/case_mur12.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
+    Image caseMur12 = new Image(getClass().getResourceAsStream("/img/case_mur12.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
 
-    Image caseMur14 = new Image(getClass().getResourceAsStream("/img/case_mur14.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
+    Image caseMur14 = new Image(getClass().getResourceAsStream("/img/case_mur14.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
 
-    Image caseMur23 = new Image(getClass().getResourceAsStream("/img/case_mur23.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
+    Image caseMur23 = new Image(getClass().getResourceAsStream("/img/case_mur23.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
 
-    Image caseMur34 = new Image(getClass().getResourceAsStream("/img/case_mur34.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
-    Image caseMur1234 = new Image(getClass().getResourceAsStream("/img/case_mur1234.png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false);
+    Image caseMur34 = new Image(getClass().getResourceAsStream("/img/case_mur34.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
+    Image caseMur1234 = new Image(getClass().getResourceAsStream("/img/case_mur1234.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
 
 
 
@@ -119,12 +121,20 @@ public class HelloController {
         }
 
 
+        JetonTirage jetonActuel;
+        jetonActuel = choisirJeton();
+        System.out.println(jetonActuel.getPath());
+
+        Image jeton = new Image(getClass().getResourceAsStream("/img/"+ jetonActuel.getPath() + ".png"), (SCREEN_SIZE / 17), (SCREEN_SIZE / 17), false, false);
+        image = new ImageView(jeton);
+        root.add(image,0 , 17);
+
 
 
             // CREER
             for (Robot robot : Jeu.robots) {
 
-                ImageView imageRobots = new ImageView(new Image(getClass().getResourceAsStream("/img/"+robot.getPath()+".png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false));
+                ImageView imageRobots = new ImageView(new Image(getClass().getResourceAsStream("/img/"+robot.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false));
 
 
                 imageRobots.setOnMouseClicked(mouseEvent -> {
@@ -139,7 +149,7 @@ public class HelloController {
 
             for (DestinationJeton destinationJeton : Jeu.destinationJetons) {
 
-                image = new ImageView(new Image(getClass().getResourceAsStream("/img/"+destinationJeton.getPath()+".png"), SCREEN_SIZE / 16, SCREEN_SIZE / 16, false, false)); // TODO : CHANGER PAR PATH
+                image = new ImageView(new Image(getClass().getResourceAsStream("/img/"+destinationJeton.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false)); // TODO : CHANGER PAR PATH
 
                 root.add(image,destinationJeton.getPosx(),destinationJeton.getPosy());
             }
