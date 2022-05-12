@@ -14,8 +14,6 @@ import java.util.Random;
 
 public class Jeu {
 
-
-    static Input input;
     static Joueur joueur1;
     static Joueur joueur2;
     static int taillePlateau = 16;
