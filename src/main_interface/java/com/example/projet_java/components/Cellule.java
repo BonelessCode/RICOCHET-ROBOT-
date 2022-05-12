@@ -1,6 +1,4 @@
-package components;
-
-import java.util.List;
+package com.example.projet_java.components;
 
 public class Cellule {
     boolean murHaut;

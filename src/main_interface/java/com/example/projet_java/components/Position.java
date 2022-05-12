@@ -1,4 +1,4 @@
-package components;
+package com.example.projet_java.components;
 
 public class Position {
     int x;

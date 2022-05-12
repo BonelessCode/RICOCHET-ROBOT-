@@ -1,6 +1,4 @@
-package entities;
-
-import components.Position;
+package com.example.projet_java.entities;
 
 public class Robot {
 

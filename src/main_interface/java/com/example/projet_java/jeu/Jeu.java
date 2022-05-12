@@ -1,13 +1,12 @@
-package jeu;
+package com.example.projet_java.jeu;
 
 import com.example.projet_java.HelloApplication;
-import components.Cellule;
+import com.example.projet_java.components.Cellule;
+import com.example.projet_java.entities.JetonTirage;
+import com.example.projet_java.entities.Joueur;
+import com.example.projet_java.entities.Robot;
 
-import entities.DestinationJeton;
-
-import entities.JetonTirage;
-import entities.Joueur;
-import entities.Robot;
+import com.example.projet_java.entities.DestinationJeton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -162,7 +161,7 @@ public class Jeu {
 
 
 
-        System.out.println("choix : " + choix);
+//        System.out.println("choix : " + choix);
         if(choix==1){
             while(!plateau[positionYBase][positionXBase].isMurGauche() && !plateau[positionYBase][positionXBase-1].isMurDroit() && !isObstacle(choix,robot,positionXBase,positionYBase)){
                 positionXBase-=1;
@@ -252,7 +251,7 @@ public class Jeu {
 
 
 
-    private static void genererRobots() {
+    public static void genererRobots() {
         robots = new Robot[4];
         Random random = new Random();
         int x;

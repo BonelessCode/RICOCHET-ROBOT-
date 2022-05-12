@@ -1,29 +1,23 @@
 package com.example.projet_java;
 
-import components.Cellule;
-import entities.DestinationJeton;
-import entities.JetonTirage;
-import entities.Robot;
-import javafx.animation.TranslateTransition;
+import com.example.projet_java.components.Cellule;
+import com.example.projet_java.entities.DestinationJeton;
+import com.example.projet_java.entities.JetonTirage;
+import com.example.projet_java.entities.Robot;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import jeu.Jeu;
+import com.example.projet_java.jeu.Jeu;
 
 import static java.lang.Math.abs;
-import static jeu.Jeu.choisirJeton;
+import static com.example.projet_java.jeu.Jeu.choisirJeton;
 
 
 public class HelloController {

@@ -1,4 +1,4 @@
-package entities;
+package com.example.projet_java.entities;
 
 public class DestinationJeton {
     String path;
