@@ -12,7 +12,7 @@ import static com.example.projet_java.jeu.Jeu.genererJetonTirage;
 
 public class JeuTests {
     @Test
-    public void deplacementTest(){
+    public void deplacementHautTest(){
         Jeu.genererPlateau();
         Jeu.genererRobots();
         Robot robot = new Robot(15,15,"v","");
@@ -22,11 +22,25 @@ public class JeuTests {
 
         int[] posExperimentale = Jeu.deplacement(robot,2);
 
+        Assertions.assertArrayEquals(posExperimentale,posExpected);
+    }
+
+    @Test
+    public void deplacementBasTest(){
+        Jeu.genererPlateau();
+        Jeu.genererRobots();
+        Robot robot = new Robot(0,0,"v","");
+
+        int[] posExpected = {0,3};
+
+
+        int[] posExperimentale = Jeu.deplacement(robot,4);
 
         Assertions.assertArrayEquals(posExperimentale,posExpected);
     }
 
     @Test
+
     public void choisirJetonTest() throws Exception{
         genererJetonTirage();
         JetonTirage jetonTest = choisirJeton();
@@ -46,4 +60,31 @@ public class JeuTests {
         Assertions.assertTrue(condition);
 
     }
+
+    public void deplacementGaucheTest(){
+        Jeu.genererPlateau();
+        Jeu.genererRobots();
+        Robot robot = new Robot(15,7,"v","");
+
+        int[] posExpected = {9,7};
+
+        int[] posExperimentale = Jeu.deplacement(robot,1);
+
+        Assertions.assertArrayEquals(posExperimentale,posExpected);
+    }
+
+
+    @Test
+    public void deplacementDroitTest(){
+        Jeu.genererPlateau();
+        Jeu.genererRobots();
+        Robot robot = new Robot(10,2,"v","");
+
+        int[] posExpected = {15,2};
+
+        int[] posExperimentale = Jeu.deplacement(robot,3);
+
+        Assertions.assertArrayEquals(posExperimentale,posExpected);
+    }
+
 }
