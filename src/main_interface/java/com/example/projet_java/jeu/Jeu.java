@@ -40,10 +40,7 @@ public class Jeu {
 
         jeton = choisirJeton();
 
-
-
-        jeton = choisirJeton();
-        System.out.println(jeton.getId());
+        System.out.println("id du jeton choisi : "+jeton.getId());
 
 
 
@@ -59,14 +56,14 @@ public class Jeu {
         DestinationJeton destinationJetonJauneTriangle = new DestinationJeton(2, 1, 6,"JauneTriangle", "j");
         DestinationJeton destinationJetonJauneCarre = new DestinationJeton(3, 6, 14,"JauneCarre", "j");
         DestinationJeton destinationJetonJauneHexa = new DestinationJeton(4, 9, 12,"JauneHexa", "j");
-        DestinationJeton destinationJetonBleuCercle = new DestinationJeton(5, 5, 1,"BleuCercle", "v");
-        DestinationJeton destinationJetonBleuTriangle = new DestinationJeton(6, 9, 1,"BleuTriangle", "v");
-        DestinationJeton destinationJetonBleuCarre = new DestinationJeton(7, 11, 9,"BleuCarre", "v");
-        DestinationJeton destinationJetonBleuHexa = new DestinationJeton(8, 2, 10,"BleuHexa", "v");
-        DestinationJeton destinationJetonVertCercle = new DestinationJeton(9, 4, 13,"VertCercle", "b");
-        DestinationJeton destinationJetonVertTriangle = new DestinationJeton(10, 12, 14,"VertTriangle", "b");
-        DestinationJeton destinationJetonVertCarre = new DestinationJeton(11, 6, 5,"VertCarre", "b");
-        DestinationJeton destinationJetonVertHexa = new DestinationJeton(12, 14, 5,"VertHexa", "b");
+        DestinationJeton destinationJetonBleuCercle = new DestinationJeton(5, 5, 1,"BleuCercle", "b");
+        DestinationJeton destinationJetonBleuTriangle = new DestinationJeton(6, 9, 1,"BleuTriangle", "b");
+        DestinationJeton destinationJetonBleuCarre = new DestinationJeton(7, 11, 9,"BleuCarre", "b");
+        DestinationJeton destinationJetonBleuHexa = new DestinationJeton(8, 2, 10,"BleuHexa", "b");
+        DestinationJeton destinationJetonVertCercle = new DestinationJeton(9, 4, 13,"VertCercle", "v");
+        DestinationJeton destinationJetonVertTriangle = new DestinationJeton(10, 12, 14,"VertTriangle", "v");
+        DestinationJeton destinationJetonVertCarre = new DestinationJeton(11, 6, 5,"VertCarre", "v");
+        DestinationJeton destinationJetonVertHexa = new DestinationJeton(12, 14, 5,"VertHexa", "v");
         DestinationJeton destinationJetonRougeCercle = new DestinationJeton(13, 14, 11,"RougeCercle", "r");
         DestinationJeton destinationJetonRougeTriangle = new DestinationJeton(14, 5, 8,"RougeTriangle" , "r");
         DestinationJeton destinationJetonRougeCarre = new DestinationJeton(15, 13, 1,"RougeCarre", "r");
@@ -112,10 +109,10 @@ public class Jeu {
                 "RougeCarre",
                 "RougeHexa");
 
-        List<String> listeCouleur = List.of("j","j","j","j","b","b","b","b","v","v","v","v","r","r","r","r");
 
         for (int i =0;i<16;i++){
-            JetonTirage jeton = new JetonTirage(i,paths.get(i));
+            JetonTirage jeton = new JetonTirage(i+1,paths.get(i));
+//            System.out.println("Jeton tirage créé \n id : "+(i+1)+" nom : "+paths.get(i));
             jetons.add(jeton);
         }
 
@@ -169,7 +166,6 @@ public class Jeu {
         }
 
         else if(choix==2){
-
             while(!plateau[positionYBase][positionXBase].isMurHaut() && !plateau[positionYBase-1][positionXBase].isMurBas()  && !isObstacle(choix,robot,positionXBase,positionYBase)){
                 positionYBase-=1;
             }
@@ -206,6 +202,9 @@ public class Jeu {
                 System.out.println("position OK");
                 if (robot.getCouleur().equals(destinationJeton.getCouleur())){
                     System.out.println("couleur OK");
+
+                    System.out.println("id destination : "+destinationJeton.getId());
+                    System.out.println("id jetontirage : "+jeton.getId());
                     if (jeton.getId() == destinationJeton.getId()){
                         System.out.println("AD TROP FORT");
                     }
