@@ -24,6 +24,19 @@ public class JeuTests {
 
         Assertions.assertArrayEquals(posExperimentale,posExpected);
     }
+    @Test
+    public void jetonsTest(){
+        Jeu.genererPlateau();
+        Jeu.genererRobots();
+        Jeu.destinationJeton();
+
+        Jeu.jeton = new JetonTirage(1,"");
+        Robot robot = new Robot(11,6,"j","");
+
+
+
+        Assertions.assertTrue(Jeu.verifJeton(robot)==1);
+    }
 
     @Test
     public void deplacementBasTest(){
