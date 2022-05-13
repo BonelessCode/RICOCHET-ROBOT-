@@ -1,6 +1,7 @@
 package com.example.projet_java;
 
 import com.example.projet_java.components.Cellule;
+import com.example.projet_java.entities.JetonTirage;
 import com.example.projet_java.entities.Robot;
 import com.example.projet_java.jeu.Jeu;
 import org.junit.jupiter.api.Assertions;
@@ -19,6 +20,19 @@ public class JeuTests {
         int[] posExperimentale = Jeu.deplacement(robot,2);
 
         Assertions.assertArrayEquals(posExperimentale,posExpected);
+    }
+    @Test
+    public void jetonsTest(){
+        Jeu.genererPlateau();
+        Jeu.genererRobots();
+        Jeu.destinationJeton();
+
+        Jeu.jeton = new JetonTirage(1,"");
+        Robot robot = new Robot(11,6,"j","");
+
+
+
+        Assertions.assertTrue(Jeu.verifJeton(robot)==1);
     }
 
     @Test
