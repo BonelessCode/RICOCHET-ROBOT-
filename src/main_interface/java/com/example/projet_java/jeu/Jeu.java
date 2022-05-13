@@ -383,8 +383,6 @@ public class Jeu {
         plateau[14][12].setMurBas(true);
         plateau[14][12].setMurDroit(true);
 
-
-
     }
 
 
