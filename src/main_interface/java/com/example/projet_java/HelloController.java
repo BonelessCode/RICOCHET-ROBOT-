@@ -16,6 +16,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import com.example.projet_java.jeu.Jeu;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static java.lang.Math.abs;
 import static com.example.projet_java.jeu.Jeu.choisirJeton;
 
@@ -159,6 +162,27 @@ public class HelloController {
 
             stage.show();
 
+
+            //Timer
+
+            Timer myTimer = new Timer();
+            myTimer.schedule(new TimerTask(){
+                int time = 30;
+                Label label = new Label("My Label");
+                @Override
+                public void run(){
+
+
+                    System.out.println("Salut" + time);
+
+                    if(time == 0){
+                        cancel();
+                        new Image(("Sou"), (SCREEN_SIZE / 17), (SCREEN_SIZE / 17), false, false);
+                        //root.add(label,1 , 17);
+                    }
+                    time--;
+                }
+            }, 0, 1000);
 
 
             scene.setOnKeyPressed(keyEvent -> {
