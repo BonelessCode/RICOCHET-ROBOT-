@@ -27,5 +27,4 @@ public class DestinationJeton extends Jeton {
     public String getCouleur() {
         return couleur;
     }
-
 }
