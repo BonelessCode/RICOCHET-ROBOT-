@@ -4,23 +4,31 @@ import com.example.projet_java.components.Cellule;
 import com.example.projet_java.entities.DestinationJeton;
 import com.example.projet_java.entities.JetonTirage;
 import com.example.projet_java.entities.Robot;
+import com.example.projet_java.entities.Time;
+import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import com.example.projet_java.jeu.Jeu;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.Math.abs;
 import static com.example.projet_java.jeu.Jeu.choisirJeton;
+//import static jdk.internal.org.jline.utils.Colors.h;
 
 
 public class HelloController {
@@ -125,119 +133,224 @@ public class HelloController {
 
 
 
-            // CREER
-            for (Robot robot : Jeu.robots) {
+        // CREER
+        for (Robot robot : Jeu.robots) {
 
-                ImageView imageRobots = new ImageView(new Image(getClass().getResourceAsStream("/img/"+robot.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false));
+            ImageView imageRobots = new ImageView(new Image(getClass().getResourceAsStream("/img/"+robot.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false));
 
 
-                imageRobots.setOnMouseClicked(mouseEvent -> {
-                    robotSelected = robot;
-                    imageSelectionnee = imageRobots;
-                    int i =0;
-                });
+            imageRobots.setOnMouseClicked(mouseEvent -> {
+                robotSelected = robot;
+                imageSelectionnee = imageRobots;
+                int i =0;
+            });
 
-                root.add(imageRobots,robot.getPositionX(),robot.getPositionY());
-            }
+            root.add(imageRobots,robot.getPositionX(),robot.getPositionY());
+        }
 //
 
-            for (DestinationJeton destinationJeton : Jeu.destinationJetons) {
+        for (DestinationJeton destinationJeton : Jeu.destinationJetons) {
 
-                image = new ImageView(new Image(getClass().getResourceAsStream("/img/"+destinationJeton.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false)); // TODO : CHANGER PAR PATH
+            image = new ImageView(new Image(getClass().getResourceAsStream("/img/"+destinationJeton.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false)); // TODO : CHANGER PAR PATH
 
-                root.add(image,destinationJeton.getPosx(),destinationJeton.getPosy());
-            }
+            root.add(image,destinationJeton.getPosx(),destinationJeton.getPosy());
+        }
 
 
 //            animate(player,0, 0, 2, 0);
 //            root.add(this.player, 0, 0);
 
-            System.out.println(root.getScene());
+        System.out.println(root.getScene());
 
-            Scene scene = new Scene(root, SCREEN_SIZE, SCREEN_SIZE);
+        Scene scene = new Scene(root, SCREEN_SIZE, SCREEN_SIZE);
 
-            stage.setTitle("Ricochet Robots!");
-            scene.setFill(Color.web("#006AF9"));
-            stage.setScene(scene);
+        stage.setTitle("Ricochet Robots!");
+        scene.setFill(Color.web("#006AF9"));
+        stage.setScene(scene);
 
-            stage.show();
-
-
-            //Timer
-
-            Timer myTimer = new Timer();
-            myTimer.schedule(new TimerTask(){
-                int time = 30;
-                Label label = new Label("My Label");
-                @Override
-                public void run(){
+        stage.show();
 
 
-                    System.out.println("Salut" + time);
+        /*Time timer1 = new Time(16);
+        int time1 = 30;
+        Text texte = new Text();
 
-                    if(time == 0){
-                        cancel();
-                        new Image(("Sou"), (SCREEN_SIZE / 17), (SCREEN_SIZE / 17), false, false);
-                        //root.add(label,1 , 17);
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                        int time = timer1.getValue();
+                        while (time != 0) {
+                            root.getChildren().remove(texte);
+                            System.out.println(time);
+                            String s = Integer.toString(timer1.getValue());
+                            texte.setText(s);
+
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            root.add(texte, time, 17);
+                            time--;
+                            timer1.setValue(time);
+
+                        }
+
+
                     }
-                    time--;
                 }
-            }, 0, 1000);
+        );*/
+
+        /*Thread thrd = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int time = timer1.getValue();
+                String s= Integer.toString(timer1.getValue());
+                texte.setText(s);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                time--;
+                animateText(texte, 1,17);
+            }
+        });
+
+        thrd.start();*/
+
+        /*boolean finTimer = false;
+        //Timer
+        int time1 = 30;
+
+        Time timer1 = new Time(20);
+        Timer myTimer = new Timer();
+        Text texte = new Text();
+
+        myTimer.schedule(new TimerTask(){
 
 
-            scene.setOnKeyPressed(keyEvent -> {
+            @Override
+            public void run(){
+            int time = timer1.getValue();
 
-                if (robotSelected != null) {
-                    int[] nouvellePosition;
+                System.out.println(time);
 
-                    switch (keyEvent.getCode()) {
-                        case UP:
-                            nouvellePosition = Jeu.deplacement(robotSelected,2);
-                            Jeu.nbrCoup +=1;
-                            System.out.println("Nombre de coup :" +Jeu.nbrCoup);
-                            break;
+                String s= Integer.toString(timer1.getValue());
+                //Text texte = new Text();
+                texte.setText(s);
+                animateText(texte, 1, 17);
 
-                        case DOWN:
-                            nouvellePosition = Jeu.deplacement(robotSelected,4);
-                            Jeu.nbrCoup +=1;
-                            System.out.println("Nombre de coup :" +Jeu.nbrCoup);
-                            break;
+                if(time == 0){
+                    boolean finTimer = true;
+                    System.out.println("timer fini");
+                    cancel();
 
+                }
+                time--;
 
-                        case LEFT:
-                            nouvellePosition = Jeu.deplacement(robotSelected,1);
-                            Jeu.nbrCoup +=1;
-                            System.out.println("Nombre de coup :" +Jeu.nbrCoup);
-                            break;
+                timer1.setValue(time);
+            }
 
-                        case RIGHT:
-                            nouvellePosition = Jeu.deplacement(robotSelected,3);
-                            Jeu.nbrCoup +=1;
-                            System.out.println("Nombre de coup :" +Jeu.nbrCoup);
-                            break;
-                        default:
-                            nouvellePosition = new int[]{0, 0};
-                            Jeu.nbrCoup +=1;
-                            System.out.println("Nombre de coup :" + Jeu.nbrCoup);
-                            break;
-                    }
+        }, 0, 1000);*/
 
 
-                    System.out.println("Position actuelle : "+robotSelected.getPositionX()+" "+robotSelected.getPositionY());
-                    System.out.println("Nouvelle position : "+nouvellePosition[0]+ " "+ nouvellePosition[1]);
 
 
-                    animate(imageSelectionnee,robotSelected.getPositionX(),robotSelected.getPositionY(),nouvellePosition[0],nouvellePosition[1]);
-                    robotSelected.setPositionX(nouvellePosition[0]);
-                    robotSelected.setPositionY(nouvellePosition[1]);
 
-                    Jeu.verifJeton(robotSelected);
+        //root.add(texte, 1, 17);
+
+
+       /* Text texte = new Text();
+        Time timer1 = new Time(25);
+        new AnimationTimer(){
+            int time1 = 30;
+            @Override
+
+            public void handle(long l) {
+                int time = timer1.getValue();
+                String s= Integer.toString(timer1.getValue());
+                texte.setText(s);
+
+
+                root.add(texte, 1, 17);
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(time);
+                if(time == 0){
+                    boolean finTimer = true;
+                    System.out.println("timer fini");
+                    //cancel();
+
+                }
+                time--;
+                //root.add(null, 1, 17);
+                timer1.setValue(time);
+                root.getChildren().remove(s);
+            }
+
+
+        }.start();*/
+
+
+        scene.setOnKeyPressed(keyEvent -> {
+
+            if (robotSelected != null) {
+                int[] nouvellePosition;
+
+                switch (keyEvent.getCode()) {
+                    case UP:
+                        nouvellePosition = Jeu.deplacement(robotSelected,2);
+                        Jeu.nbrCoup +=1;
+                        System.out.println("Nombre de coup :" +Jeu.nbrCoup);
+                        break;
+
+                    case DOWN:
+                        nouvellePosition = Jeu.deplacement(robotSelected,4);
+                        Jeu.nbrCoup +=1;
+                        System.out.println("Nombre de coup :" +Jeu.nbrCoup);
+                        break;
+
+
+                    case LEFT:
+                        nouvellePosition = Jeu.deplacement(robotSelected,1);
+                        Jeu.nbrCoup +=1;
+                        System.out.println("Nombre de coup :" +Jeu.nbrCoup);
+                        break;
+
+                    case RIGHT:
+                        nouvellePosition = Jeu.deplacement(robotSelected,3);
+                        Jeu.nbrCoup +=1;
+                        System.out.println("Nombre de coup :" +Jeu.nbrCoup);
+                        break;
+                    default:
+                        nouvellePosition = new int[]{0, 0};
+                        Jeu.nbrCoup +=1;
+                        System.out.println("Nombre de coup :" + Jeu.nbrCoup);
+                        break;
                 }
 
 
-            });
+                System.out.println("Position actuelle : "+robotSelected.getPositionX()+" "+robotSelected.getPositionY());
+                System.out.println("Nouvelle position : "+nouvellePosition[0]+ " "+ nouvellePosition[1]);
 
-        }
+
+                animate(imageSelectionnee,robotSelected.getPositionX(),robotSelected.getPositionY(),nouvellePosition[0],nouvellePosition[1]);
+                robotSelected.setPositionX(nouvellePosition[0]);
+                robotSelected.setPositionY(nouvellePosition[1]);
+
+                Jeu.verifJeton(robotSelected);
+            }
+
+
+        });
+
+    }
 
 
 
@@ -298,4 +411,9 @@ public class HelloController {
         root.add(entite, posx, posy);
     }
 
+    private void animateText(Text text ,int posx,int posy){
+        root.getChildren().remove(text);
+
+        root.add(text, posx, posy);
+    }
 }

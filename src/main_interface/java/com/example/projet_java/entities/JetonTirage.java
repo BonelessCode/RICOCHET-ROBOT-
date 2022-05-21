@@ -15,9 +15,7 @@ public class JetonTirage {
         return id;
     }
 
-    public int getId(int i){
-        return this.id;
-    }
+
 
     public String getPath() {
         return path;
