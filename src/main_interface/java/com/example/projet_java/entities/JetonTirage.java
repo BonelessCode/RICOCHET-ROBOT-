@@ -1,8 +1,7 @@
 package com.example.projet_java.entities;
 
-public class JetonTirage {
-    String path;
-    public int id;
+public class JetonTirage extends Jeton {
+
 
 
     public JetonTirage(int id,String path) {
@@ -11,13 +10,4 @@ public class JetonTirage {
 
     }
 
-    public int getId() {
-        return id;
-    }
-
-
-
-    public String getPath() {
-        return path;
-    }
 }
