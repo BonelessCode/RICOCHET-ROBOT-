@@ -3,15 +3,20 @@ package com.example.projet_java;
 import com.example.projet_java.components.Cellule;
 import com.example.projet_java.entities.DestinationJeton;
 import com.example.projet_java.entities.Robot;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -19,15 +24,14 @@ import javafx.stage.Stage;
 import com.example.projet_java.jeu.Jeu;
 
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
-
-
+import static java.lang.Math.abs;
 
 
 public class HelloController {
+    private static final int MAX_COUPS = 2147483646;
     @FXML
     int nombreJoueurs=1;
     public static final int WIDTH = 16;
@@ -35,9 +39,12 @@ public class HelloController {
     public static final int SCREEN_SIZE = 760;
 
 
+    Text texteTimer = new Text("30");
+
     GridPane root;
 
-
+    List<TextField> listeCoupsJoueursTextField;
+    List<Label> listePointsJoueursText;
 
 
 
@@ -68,12 +75,17 @@ public class HelloController {
     Image caseMur34 = new Image(getClass().getResourceAsStream("/img/case_mur34.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
     Image caseMur1234 = new Image(getClass().getResourceAsStream("/img/case_mur1234.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
 
-
-
+    ImageView imageJetonTirage;
+    boolean finTimer;
 
 
     @FXML
     private Label nombreJoueur;
+    private int joueurActuel;
+    private List<ImageView> listeImagesRobots = new ArrayList<>();
+    private Button boutonReset = new Button("Reset");
+    private Button boutonNext = new Button("Next");
+    private ArrayList<Integer> listeCoupsJoueursRestants;
 
     @FXML
     protected void onPlayButtonClick(ActionEvent event) {
@@ -86,8 +98,15 @@ public class HelloController {
         root.setHgap(1);
         root.setVgap(1);
 
+
         Cellule[][] plateau = Jeu.plateau;
 
+        listeCoupsJoueursTextField = new ArrayList<>();
+        listePointsJoueursText = new ArrayList<>();
+
+        resetListeCoups();
+        resetListeCoupsMini();
+        Jeu.listePointsJoueurs = new ArrayList<>(Collections.nCopies(nombreJoueurs, 0));
 
 
         initialisationMursGraphique(plateau);
@@ -100,44 +119,56 @@ public class HelloController {
 
         afficherJetonsPlateau();
 
+        timer();
+
         Scene scene = new Scene(root, SCREEN_SIZE, SCREEN_SIZE);
 
         stage.setTitle("Ricochet Robots!");
         scene.setFill(Color.web("#006AF9"));
         stage.setScene(scene);
-        timer();
+
         stage.show();
 
 
-        clavierDeplacement(scene);
+        deplacementPosition(scene);
     }
 
-    private void clavierDeplacement(Scene scene) {
+    private void resetListeCoups() {
+        Jeu.listeCoupsJoueurs = new ArrayList<>(Collections.nCopies(nombreJoueurs, MAX_COUPS));
+
+    }
+
+    private void deplacementPosition(Scene scene) {
         scene.setOnKeyPressed(keyEvent -> {
 
-            if (robotSelected != null) {
+            System.out.println(finTimer);
+            System.out.println(robotSelected);
+
+            if (robotSelected != null && finTimer) {
+
+                System.out.println("done");
                 int[] nouvellePosition = {robotSelected.getPositionX(),robotSelected.getPositionY()};
 
                 switch (keyEvent.getCode()) {
-                    case UP:
+                    case Z:
                         nouvellePosition = Jeu.deplacement(robotSelected,2);
                         Jeu.nbrCoup +=1;
                         System.out.println("Nombre de coup :" +Jeu.nbrCoup);
                         break;
 
-                    case DOWN:
+                    case S:
                         nouvellePosition = Jeu.deplacement(robotSelected,4);
                         Jeu.nbrCoup +=1;
                         System.out.println("Nombre de coup :" +Jeu.nbrCoup);
                         break;
 
-                    case LEFT:
+                    case Q:
                         nouvellePosition = Jeu.deplacement(robotSelected,1);
                         Jeu.nbrCoup +=1;
                         System.out.println("Nombre de coup :" +Jeu.nbrCoup);
                         break;
 
-                    case RIGHT:
+                    case D:
                         nouvellePosition = Jeu.deplacement(robotSelected,3);
                         Jeu.nbrCoup +=1;
                         System.out.println("Nombre de coup :" +Jeu.nbrCoup);
@@ -164,12 +195,51 @@ public class HelloController {
                 robotSelected.setPositionX(nouvellePosition[0]);
                 robotSelected.setPositionY(nouvellePosition[1]);
 
-                Jeu.verifJeton(robotSelected);
+
+                verifierVictoire();
             }
-
-
         });
     }
+
+    private void verifierVictoire() {
+        if(Jeu.verifJeton(robotSelected)==1){
+            System.out.println("Nombre de coups i.e : "+Jeu.nbrCoup);
+            System.out.println("Jeu.listeCoupsJoueurs : "+Jeu.listeCoupsJoueurs);
+            System.out.println("joueurActuel : "+joueurActuel);
+
+            System.out.println("Coups prévu : "+Jeu.listeCoupsJoueurs.get(joueurActuel));
+
+//          Si le joueur a tapé le bon nombre de coup
+            if(Jeu.nbrCoup==Jeu.listeCoupsJoueurs.get(joueurActuel)){
+                Jeu.listePointsJoueurs.set(joueurActuel,Jeu.listePointsJoueurs.get(joueurActuel)+1);
+
+                for (Robot robot: Jeu.robots) {
+                    robot.resetPositionBase();
+                }
+                passagePhaseReflexion();
+
+            }
+        }
+    }
+
+    private void resetListeCoupsMini() {
+        listeCoupsJoueursRestants = new ArrayList<>(Collections.nCopies(nombreJoueurs, MAX_COUPS));
+    }
+
+
+    private void resetJetonEtTimer() {
+        resetListeCoups();
+        resetListeCoupsMini();
+
+        Jeu.jeton = Jeu.choisirJeton();
+
+        Image image = new Image(getClass().getResourceAsStream("/img/"+ Jeu.jeton.getPath() + ".png"), (SCREEN_SIZE / 17), (SCREEN_SIZE / 17), false, false);
+        imageJetonTirage.setImage(image);
+
+        finTimer = false;
+        timer();
+    }
+
 
     private void afficherJetonsPlateau() {
         ImageView image;
@@ -191,10 +261,11 @@ public class HelloController {
             imageRobots.setOnMouseClicked(mouseEvent -> {
                 robotSelected = robot;
                 imageSelectionnee = imageRobots;
-                int i =0;
-            });
 
+            });
             root.add(imageRobots,robot.getPositionX(),robot.getPositionY());
+
+            listeImagesRobots.add(imageRobots);
         }
     }
 
@@ -209,23 +280,54 @@ public class HelloController {
             text.setPadding(new Insets(0, 0, 0, 20));
 
             root.add(text,16+h/16,h%16);
-
+            listeCoupsJoueursTextField.add(text);
 
             Text number = new Text(""+(h+1));
             root.add(number,16+h/16,h%16);
         }
     }
 
+    private void supprimerTextPointsJoueurs() {
+        for (Label text : listePointsJoueursText) {
+            root.getChildren().remove(text);
+        }
+    }
+
+    private void afficherTextPointsJoueurs() {
+        for(int h = 0; h<nombreJoueurs; h++){
+            Label text = new Label(""+Jeu.listePointsJoueurs.get(h));
+            text.setMaxWidth(SCREEN_SIZE / 17);
+            text.setStyle("-fx-text-fill: white;");
+            text.setPadding(new Insets(0, 0, 0, 20));
+
+            root.add(text,16+h/16,h%16);
+            listePointsJoueursText.add(text);
+        }
+    }
+
+
+    private void supprimerTextInputJoueurs() {
+        for (TextField text : listeCoupsJoueursTextField) {
+            root.getChildren().remove(text);
+        }
+
+        listeCoupsJoueursTextField = new ArrayList<>();
+    }
+
+
+
     private void afficherJeton() {
-        ImageView image;
         Image jeton = new Image(getClass().getResourceAsStream("/img/"+ Jeu.jeton.getPath() + ".png"), (SCREEN_SIZE / 17), (SCREEN_SIZE / 17), false, false);
-        image = new ImageView(jeton);
-        root.add(image,0 , 17);
+        imageJetonTirage = new ImageView(jeton);
+        root.add(imageJetonTirage,0 , 17);
     }
 
     private void initialisationMursGraphique(Cellule[][] plateau) {
         Cellule celluleActuelle;
         ImageView image;
+
+        root.add(texteTimer, 1, 17);
+
         for (int k = 0; k < WIDTH; k++) {
             for (int j = 0; j < WIDTH; j++) {
 
@@ -256,35 +358,113 @@ public class HelloController {
             }
         }
 
-        System.out.println(root.getScene());
 
     }
 
 
     private void timer() {
-        Text texte = new Text("30");
 
-        root.add(texte, 1, 17);
 
         Timer t = new Timer( );
         t.scheduleAtFixedRate(new TimerTask() {
             int time = 30;
-            boolean finTimer = false;
 
             @Override
             public void run() {
                 time--;
-                texte.setText(""+time);
-
-
+                texteTimer.setText(""+time);
                 if(time==0){
-                    texte.setText(""+time);
-                    finTimer = true;
+
+                    for(int x=0;x<Jeu.listeCoupsJoueurs.size();x++){
+                        Jeu.listeCoupsJoueurs.set(x,listeCoupsJoueursTextField.get(x).getText().replaceAll("[^0-9]", "") == "" ? MAX_COUPS : Integer.parseInt(listeCoupsJoueursTextField.get(x).getText().replaceAll("[^0-9]", "")));
+                        listeCoupsJoueursRestants = new ArrayList<>(Jeu.listeCoupsJoueurs);
+                    }
+
+
+                    System.out.println("Jeu.listeCoupsJoueurs : "+Jeu.listeCoupsJoueurs);
+
+
+                    if(Collections.min(Jeu.listeCoupsJoueurs).intValue()!=MAX_COUPS){
+                        joueurActuel = Jeu.listeCoupsJoueurs.indexOf(Collections.min(Jeu.listeCoupsJoueurs));
+                        texteTimer.setText("J"+(joueurActuel+1));
+                        finTimer = true;
+                    }
+
+
+
+                    Platform.runLater(() -> {
+                        if(Collections.min(Jeu.listeCoupsJoueurs)!=MAX_COUPS) {
+                            passagePhaseGameplay();
+                        }
+                        else{
+                            resetJetonEtTimer();
+                        }
+                    });
                     cancel();
                 }
-
             }
         }, 0,1000);
+    }
+
+    private void passagePhaseGameplay() {
+        Jeu.nbrCoup = 0;
+        supprimerTextInputJoueurs();
+        afficherTextPointsJoueurs();
+        afficherBoutons();
+    }
+
+    private void afficherBoutons() {
+        root.add(boutonNext,14,16);
+        root.add(boutonReset,15,16);
+
+        boutonNext.setOnMouseClicked(mouseEvent -> {
+            listeCoupsJoueursRestants.remove(Collections.min(listeCoupsJoueursRestants));
+            System.out.println("listeCoupsJoueursRestants : "+ listeCoupsJoueursRestants);
+
+            if(!listeCoupsJoueursRestants.isEmpty()){
+                if(Collections.min(listeCoupsJoueursRestants)!=MAX_COUPS){
+                    joueurActuel =Jeu.listeCoupsJoueurs.lastIndexOf((Collections.min(listeCoupsJoueursRestants)));
+                    texteTimer.setText("J"+(joueurActuel+1));
+                }
+                else{
+                    passagePhaseReflexion();
+                }
+            }
+
+            else{
+                passagePhaseReflexion();
+            }
+        });
+
+        boutonReset.setOnMouseClicked(mouseEvent -> {
+
+            for (ImageView imageView:listeImagesRobots) {
+                root.getChildren().remove(imageView);
+            }
+            listeImagesRobots = new ArrayList<>();
+
+            for (Robot robot: Jeu.robots) {
+                robot.setPositionX(robot.getPositionBaseX());
+                robot.setPositionY(robot.getPositionBaseY());
+
+            }
+            afficherRobots();
+            Jeu.nbrCoup=0;
+        });
+    }
+
+    private void passagePhaseReflexion() {
+
+        supprimerTextPointsJoueurs();
+        afficherTextInputJoueurs();
+        supprimerBoutons();
+
+        resetJetonEtTimer();
+    }
+
+    private void supprimerBoutons() {
+        root.getChildren().remove(boutonNext);
+        root.getChildren().remove(boutonReset);
     }
 
 
@@ -345,9 +525,4 @@ public class HelloController {
         root.add(entite, posx, posy);
     }
 
-    private void animateText(Text text ,int posx,int posy){
-        root.getChildren().remove(text);
-
-        root.add(text, posx, posy);
-    }
 }
