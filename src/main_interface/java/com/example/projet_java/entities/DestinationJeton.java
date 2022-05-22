@@ -7,13 +7,11 @@ public class DestinationJeton extends Jeton {
     String couleur;
 
     public DestinationJeton(int id, int posx, int posy, String path,String couleur) {
-
         this.id = id;
         this.posx = posx;
         this.posy = posy;
         this.path = path;
         this.couleur = couleur;
-
     }
 
     public int getPosx() {

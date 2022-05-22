@@ -16,6 +16,9 @@ public class Robot {
     int positionX;
     int positionY;
 
+
+
+
     public Robot(int positionX, int positionY, String couleur, String path) {
         this.positionBaseX = positionX;
         this.positionBaseY = positionY;
@@ -27,6 +30,16 @@ public class Robot {
 
         this.couleur = couleur;
     }
+
+
+
+
+
+
+
+
+
+
 
     public void setPositionX(int positionX) {
         this.positionX = positionX;
@@ -52,6 +65,11 @@ public class Robot {
 
     public String getPath() {
         return path;
+    }
+
+    public void resetPositionBase() {
+        positionBaseX=positionX;
+        positionBaseY=positionY;
     }
 }
 
