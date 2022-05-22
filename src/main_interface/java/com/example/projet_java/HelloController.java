@@ -2,18 +2,12 @@ package com.example.projet_java;
 
 import com.example.projet_java.components.Cellule;
 import com.example.projet_java.entities.DestinationJeton;
-import com.example.projet_java.entities.JetonTirage;
 import com.example.projet_java.entities.Robot;
-import com.example.projet_java.entities.Time;
-import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -24,10 +18,8 @@ import com.example.projet_java.jeu.Jeu;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Math.abs;
-import static com.example.projet_java.jeu.Jeu.choisirJeton;
 //import static jdk.internal.org.jline.utils.Colors.h;
 
 
@@ -169,133 +161,8 @@ public class HelloController {
         stage.setScene(scene);
 
         stage.show();
-
-
-        /*Time timer1 = new Time(16);
-        int time1 = 30;
-        Text texte = new Text();
-
-        Platform.runLater(
-                new Runnable() {
-                    @Override
-                    public void run() {
-
-                        int time = timer1.getValue();
-                        while (time != 0) {
-                            root.getChildren().remove(texte);
-                            System.out.println(time);
-                            String s = Integer.toString(timer1.getValue());
-                            texte.setText(s);
-
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            root.add(texte, time, 17);
-                            time--;
-                            timer1.setValue(time);
-
-                        }
-
-
-                    }
-                }
-        );*/
-
-        /*Thread thrd = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int time = timer1.getValue();
-                String s= Integer.toString(timer1.getValue());
-                texte.setText(s);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                time--;
-                animateText(texte, 1,17);
-            }
-        });
-
-        thrd.start();*/
-
-        /*boolean finTimer = false;
-        //Timer
-        int time1 = 30;
-
-        Time timer1 = new Time(20);
-        Timer myTimer = new Timer();
-        Text texte = new Text();
-
-        myTimer.schedule(new TimerTask(){
-
-
-            @Override
-            public void run(){
-            int time = timer1.getValue();
-
-                System.out.println(time);
-
-                String s= Integer.toString(timer1.getValue());
-                //Text texte = new Text();
-                texte.setText(s);
-                animateText(texte, 1, 17);
-
-                if(time == 0){
-                    boolean finTimer = true;
-                    System.out.println("timer fini");
-                    cancel();
-
-                }
-                time--;
-
-                timer1.setValue(time);
-            }
-
-        }, 0, 1000);*/
-
-
-
-
-
-        //root.add(texte, 1, 17);
-
-
-       /* Text texte = new Text();
-        Time timer1 = new Time(25);
-        new AnimationTimer(){
-            int time1 = 30;
-            @Override
-
-            public void handle(long l) {
-                int time = timer1.getValue();
-                String s= Integer.toString(timer1.getValue());
-                texte.setText(s);
-
-
-                root.add(texte, 1, 17);
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(time);
-                if(time == 0){
-                    boolean finTimer = true;
-                    System.out.println("timer fini");
-                    //cancel();
-
-                }
-                time--;
-                //root.add(null, 1, 17);
-                timer1.setValue(time);
-                root.getChildren().remove(s);
-            }
-
-
-        }.start();*/
+        
+        timer();
 
 
         scene.setOnKeyPressed(keyEvent -> {
@@ -352,6 +219,32 @@ public class HelloController {
 
     }
 
+
+    private void timer() {
+        Text texte = new Text("30");
+
+        root.add(texte, 1, 17);
+
+        Timer t = new Timer( );
+        t.scheduleAtFixedRate(new TimerTask() {
+            int time = 30;
+            boolean finTimer = false;
+
+            @Override
+            public void run() {
+                time--;
+                texte.setText(""+time);
+
+
+                if(time==0){
+                    texte.setText(""+time);
+                    finTimer = true;
+                    cancel();
+                }
+
+            }
+        }, 0,1000);
+    }
 
 
     @FXML
