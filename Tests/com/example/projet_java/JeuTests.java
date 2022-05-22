@@ -7,8 +7,9 @@ import com.example.projet_java.jeu.Jeu;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static com.example.projet_java.jeu.Jeu.choisirJeton;
-import static com.example.projet_java.jeu.Jeu.genererJetonTirage;
+import java.util.List;
+
+import static com.example.projet_java.jeu.Jeu.*;
 
 public class JeuTests {
     @Test
@@ -56,6 +57,7 @@ public class JeuTests {
 
     public void choisirJetonTest() throws Exception{
         genererJetonTirage();
+        destinationJeton();
         JetonTirage jetonTest = choisirJeton();
         // String str = jeton.getClass().getSimpleName();
 
@@ -68,9 +70,42 @@ public class JeuTests {
             }
         }
 
+        List<String> paths = List.of("JauneCercle",
+                "JauneTriangle",
+                "JauneCarre",
+                "JauneHexa",
+                "BleuCercle",
+                "BleuTriangle",
+                "BleuCarre",
+                "BleuHexa",
+                "VertCercle",
+                "VertTriangle",
+                "VertCarre",
+                "VertHexa",
+                "RougeCercle",
+                "RougeTriangle",
+                "RougeCarre",
+                "RougeHexa");
 
+        boolean conditionPath = false;
+        boolean conditionPath1 = false;
 
+        for(int longueurTableau = 0; longueurTableau < paths.size(); longueurTableau++){
+            if (jetonTest.getPath() == paths.get(longueurTableau)){
+                conditionPath = true;
+            }
+        }
+
+        for(int longueurTableau1 = 0; longueurTableau1 < paths.size(); longueurTableau1++){
+            if (destinationJetons.get(longueurTableau1).getPath() == paths.get(longueurTableau1)){
+                conditionPath1 = true;
+            }
+        }
+
+        Assertions.assertTrue(conditionPath);
+        Assertions.assertTrue(conditionPath1);
         Assertions.assertTrue(condition);
+
 
     }
 
@@ -99,5 +134,8 @@ public class JeuTests {
 
         Assertions.assertArrayEquals(posExperimentale,posExpected);
     }
+
+
+
 
 }

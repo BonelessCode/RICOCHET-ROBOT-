@@ -18,11 +18,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import com.example.projet_java.jeu.Jeu;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-import static java.lang.Math.abs;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
+
+
 
 
 public class HelloController {
@@ -103,7 +105,7 @@ public class HelloController {
         stage.setTitle("Ricochet Robots!");
         scene.setFill(Color.web("#006AF9"));
         stage.setScene(scene);
-
+        timer();
         stage.show();
 
 
@@ -207,7 +209,7 @@ public class HelloController {
             text.setPadding(new Insets(0, 0, 0, 20));
 
             root.add(text,16+h/16,h%16);
-            listeCoupsJoueurs.add(text);
+
 
             Text number = new Text(""+(h+1));
             root.add(number,16+h/16,h%16);
@@ -253,6 +255,36 @@ public class HelloController {
                 root.add(image, k, j);
             }
         }
+
+        System.out.println(root.getScene());
+
+    }
+
+
+    private void timer() {
+        Text texte = new Text("30");
+
+        root.add(texte, 1, 17);
+
+        Timer t = new Timer( );
+        t.scheduleAtFixedRate(new TimerTask() {
+            int time = 30;
+            boolean finTimer = false;
+
+            @Override
+            public void run() {
+                time--;
+                texte.setText(""+time);
+
+
+                if(time==0){
+                    texte.setText(""+time);
+                    finTimer = true;
+                    cancel();
+                }
+
+            }
+        }, 0,1000);
     }
 
 
@@ -313,4 +345,9 @@ public class HelloController {
         root.add(entite, posx, posy);
     }
 
+    private void animateText(Text text ,int posx,int posy){
+        root.getChildren().remove(text);
+
+        root.add(text, posx, posy);
+    }
 }
