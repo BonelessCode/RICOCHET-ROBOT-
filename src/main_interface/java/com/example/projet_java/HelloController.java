@@ -19,12 +19,10 @@ import javafx.stage.Stage;
 import com.example.projet_java.jeu.Jeu;
 
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
-
-
+import static java.lang.Math.abs;
 
 
 public class HelloController {
@@ -37,7 +35,8 @@ public class HelloController {
 
     GridPane root;
 
-
+    List<TextField> listeCoupsJoueursTextField;
+    List<Text> listePointsJoueursText;
 
 
 
@@ -69,7 +68,7 @@ public class HelloController {
     Image caseMur1234 = new Image(getClass().getResourceAsStream("/img/case_mur1234.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
 
 
-
+    boolean finTimer;
 
 
     @FXML
@@ -88,6 +87,11 @@ public class HelloController {
 
         Cellule[][] plateau = Jeu.plateau;
 
+        listeCoupsJoueursTextField = new ArrayList<>();
+        listePointsJoueursText = new ArrayList<>();
+
+        Jeu.listeCoupsJoueurs = new ArrayList<>(Collections.nCopies(nombreJoueurs, -1));
+        Jeu.listePointsJoueurs = new ArrayList<>(Collections.nCopies(nombreJoueurs, 0));
 
 
         initialisationMursGraphique(plateau);
@@ -112,10 +116,14 @@ public class HelloController {
         clavierDeplacement(scene);
     }
 
+    /**
+     * Fonction qui déplace le robot avec le clavier, graphiquement et dans Jeu en prenant en compte les obstacles
+     * @param scene
+     */
     private void clavierDeplacement(Scene scene) {
         scene.setOnKeyPressed(keyEvent -> {
 
-            if (robotSelected != null) {
+            if (robotSelected != null && finTimer) {
                 int[] nouvellePosition = {robotSelected.getPositionX(),robotSelected.getPositionY()};
 
                 switch (keyEvent.getCode()) {
@@ -209,7 +217,7 @@ public class HelloController {
             text.setPadding(new Insets(0, 0, 0, 20));
 
             root.add(text,16+h/16,h%16);
-
+            listeCoupsJoueursTextField.add(text);
 
             Text number = new Text(""+(h+1));
             root.add(number,16+h/16,h%16);
@@ -345,9 +353,4 @@ public class HelloController {
         root.add(entite, posx, posy);
     }
 
-    private void animateText(Text text ,int posx,int posy){
-        root.getChildren().remove(text);
-
-        root.add(text, posx, posy);
-    }
 }
