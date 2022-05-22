@@ -2,7 +2,6 @@ package com.example.projet_java;
 
 import com.example.projet_java.components.Cellule;
 import com.example.projet_java.entities.DestinationJeton;
-import com.example.projet_java.entities.JetonTirage;
 import com.example.projet_java.entities.Robot;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,10 +19,10 @@ import javafx.stage.Stage;
 import com.example.projet_java.jeu.Jeu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static java.lang.Math.abs;
-import static com.example.projet_java.jeu.Jeu.choisirJeton;
 
 
 public class HelloController {
@@ -36,6 +34,9 @@ public class HelloController {
 
 
     GridPane root;
+
+
+
 
 
     Label labelJoueurs;
@@ -80,106 +81,22 @@ public class HelloController {
         Stage stage = new Stage();
 
         root = new GridPane();
-
         root.setHgap(1);
         root.setVgap(1);
 
         Cellule[][] plateau = Jeu.plateau;
-        ImageView image;
-        Cellule celluleActuelle;
-
-
-        for (int k = 0; k < WIDTH; k++) {
-            for (int j = 0; j < WIDTH; j++) {
-
-                celluleActuelle = plateau[j][k];
-
-                if (!celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurGauche()) {
-                    image = new ImageView(caseVide);
-                } else if (celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurGauche()) {
-                    image = new ImageView(caseMur4);
-                } else if (celluleActuelle.isMurHaut() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurGauche()) {
-                    image = new ImageView(caseMur2);
-                } else if (celluleActuelle.isMurGauche() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurHaut()) {
-                    image = new ImageView(caseMur1);
-                } else if (celluleActuelle.isMurDroit() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurGauche()) {
-                    image = new ImageView(caseMur3);
-                } else if (celluleActuelle.isMurGauche() && celluleActuelle.isMurHaut() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurBas()) {
-                    image = new ImageView(caseMur12);
-                } else if (celluleActuelle.isMurGauche() && celluleActuelle.isMurBas() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurHaut()) {
-                    image = new ImageView(caseMur14);
-                } else if (celluleActuelle.isMurHaut() && celluleActuelle.isMurDroit() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurGauche()) {
-                    image = new ImageView(caseMur23);
-                } else if (celluleActuelle.isMurDroit() && celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurGauche()) {
-                    image = new ImageView(caseMur34);
-                } else {
-                    image = new ImageView(caseMur1234);
-                }
-
-                root.add(image, k, j);
-            }
-        }
 
 
 
+        initialisationMursGraphique(plateau);
 
+        afficherJeton();
 
+        afficherTextInputJoueurs();
 
-        JetonTirage jetonActuel;
-        jetonActuel = choisirJeton();
-        System.out.println(jetonActuel.getPath());
+        afficherRobots();
 
-        Image jeton = new Image(getClass().getResourceAsStream("/img/"+ jetonActuel.getPath() + ".png"), (SCREEN_SIZE / 17), (SCREEN_SIZE / 17), false, false);
-        image = new ImageView(jeton);
-        root.add(image,0 , 17);
-
-
-
-        List<TextField> listeCoupsJoueurs = new ArrayList<>();
-
-        for(int h=0;h<nombreJoueurs;h++){
-            image = new ImageView(caseMur1234);
-            root.add(image,16+h/16,h%16);
-
-            TextField text = new TextField();
-            text.setMaxWidth(SCREEN_SIZE / 17);
-            text.setPadding(new Insets(0, 0, 0, 20));
-
-            root.add(text,16+h/16,h%16);
-            listeCoupsJoueurs.add(text);
-
-            Text number = new Text(""+(h+1));
-            root.add(number,16+h/16,h%16);
-        }
-
-        // Ajouter robots sur le plateau
-        for (Robot robot : Jeu.robots) {
-
-            ImageView imageRobots = new ImageView(new Image(getClass().getResourceAsStream("/img/"+robot.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false));
-
-
-            imageRobots.setOnMouseClicked(mouseEvent -> {
-                robotSelected = robot;
-                imageSelectionnee = imageRobots;
-                int i =0;
-            });
-
-            root.add(imageRobots,robot.getPositionX(),robot.getPositionY());
-        }
-
-        // Ajouter Jetons sur le plateau
-        for (DestinationJeton destinationJeton : Jeu.destinationJetons) {
-
-            image = new ImageView(new Image(getClass().getResourceAsStream("/img/"+destinationJeton.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false)); // TODO : CHANGER PAR PATH
-
-            root.add(image,destinationJeton.getPosx(),destinationJeton.getPosy());
-        }
-
-
-//            animate(player,0, 0, 2, 0);
-//            root.add(this.player, 0, 0);
-
-        System.out.println(root.getScene());
+        afficherJetonsPlateau();
 
         Scene scene = new Scene(root, SCREEN_SIZE, SCREEN_SIZE);
 
@@ -190,7 +107,10 @@ public class HelloController {
         stage.show();
 
 
+        clavierDeplacement(scene);
+    }
 
+    private void clavierDeplacement(Scene scene) {
         scene.setOnKeyPressed(keyEvent -> {
 
             if (robotSelected != null) {
@@ -247,9 +167,93 @@ public class HelloController {
 
 
         });
-
     }
 
+    private void afficherJetonsPlateau() {
+        ImageView image;
+        // Ajouter Jetons sur le plateau
+        for (DestinationJeton destinationJeton : Jeu.destinationJetons) {
+
+            image = new ImageView(new Image(getClass().getResourceAsStream("/img/"+destinationJeton.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false)); // TODO : CHANGER PAR PATH
+
+            root.add(image,destinationJeton.getPosx(),destinationJeton.getPosy());
+        }
+    }
+
+    private void afficherRobots() {
+        // Ajouter robots sur le plateau
+        for (Robot robot : Jeu.robots) {
+
+            ImageView imageRobots = new ImageView(new Image(getClass().getResourceAsStream("/img/"+robot.getPath()+".png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false));
+
+            imageRobots.setOnMouseClicked(mouseEvent -> {
+                robotSelected = robot;
+                imageSelectionnee = imageRobots;
+                int i =0;
+            });
+
+            root.add(imageRobots,robot.getPositionX(),robot.getPositionY());
+        }
+    }
+
+    private void afficherTextInputJoueurs() {
+        ImageView image;
+        for(int h = 0; h<nombreJoueurs; h++){
+            image = new ImageView(caseMur1234);
+            root.add(image,16+h/16,h%16);
+
+            TextField text = new TextField();
+            text.setMaxWidth(SCREEN_SIZE / 17);
+            text.setPadding(new Insets(0, 0, 0, 20));
+
+            root.add(text,16+h/16,h%16);
+            listeCoupsJoueurs.add(text);
+
+            Text number = new Text(""+(h+1));
+            root.add(number,16+h/16,h%16);
+        }
+    }
+
+    private void afficherJeton() {
+        ImageView image;
+        Image jeton = new Image(getClass().getResourceAsStream("/img/"+ Jeu.jeton.getPath() + ".png"), (SCREEN_SIZE / 17), (SCREEN_SIZE / 17), false, false);
+        image = new ImageView(jeton);
+        root.add(image,0 , 17);
+    }
+
+    private void initialisationMursGraphique(Cellule[][] plateau) {
+        Cellule celluleActuelle;
+        ImageView image;
+        for (int k = 0; k < WIDTH; k++) {
+            for (int j = 0; j < WIDTH; j++) {
+
+                celluleActuelle = plateau[j][k];
+
+                if (!celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurGauche()) {
+                    image = new ImageView(caseVide);
+                } else if (celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurGauche()) {
+                    image = new ImageView(caseMur4);
+                } else if (celluleActuelle.isMurHaut() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurGauche()) {
+                    image = new ImageView(caseMur2);
+                } else if (celluleActuelle.isMurGauche() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurHaut()) {
+                    image = new ImageView(caseMur1);
+                } else if (celluleActuelle.isMurDroit() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurGauche()) {
+                    image = new ImageView(caseMur3);
+                } else if (celluleActuelle.isMurGauche() && celluleActuelle.isMurHaut() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurBas()) {
+                    image = new ImageView(caseMur12);
+                } else if (celluleActuelle.isMurGauche() && celluleActuelle.isMurBas() && !celluleActuelle.isMurDroit() && !celluleActuelle.isMurHaut()) {
+                    image = new ImageView(caseMur14);
+                } else if (celluleActuelle.isMurHaut() && celluleActuelle.isMurDroit() && !celluleActuelle.isMurBas() && !celluleActuelle.isMurGauche()) {
+                    image = new ImageView(caseMur23);
+                } else if (celluleActuelle.isMurDroit() && celluleActuelle.isMurBas() && !celluleActuelle.isMurHaut() && !celluleActuelle.isMurGauche()) {
+                    image = new ImageView(caseMur34);
+                } else {
+                    image = new ImageView(caseMur1234);
+                }
+                root.add(image, k, j);
+            }
+        }
+    }
 
 
     @FXML
