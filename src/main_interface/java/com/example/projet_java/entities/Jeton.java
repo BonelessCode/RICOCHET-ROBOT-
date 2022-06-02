@@ -1,8 +1,8 @@
 package com.example.projet_java.entities;
 
 public class Jeton {
-    String path;
-    int id;
+    public String path;
+    public int id;
 
 
     public int getId() {

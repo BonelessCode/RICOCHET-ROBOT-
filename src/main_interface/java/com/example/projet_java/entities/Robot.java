@@ -10,8 +10,8 @@ public class Robot {
 
     String path;
 
-    int positionBaseX;
-    int positionBaseY;
+    static int positionBaseX;
+    static int positionBaseY;
 
     int positionX;
     int positionY;
@@ -56,10 +56,10 @@ public class Robot {
         return positionY;
     }
 
-    public int getPositionBaseX() {
+    public static int getPositionBaseX() {
         return positionBaseX;
     }
-    public int getPositionBaseY() {
+    public static int getPositionBaseY() {
         return positionBaseY;
     }
 

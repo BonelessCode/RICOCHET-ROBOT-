@@ -23,7 +23,16 @@ public class JeuTests {
 
         int[] posExperimentale = Jeu.deplacement(robot,2);
 
+        int positionXRobot = Robot.getPositionBaseX();
+        int positionYRobot = Robot.getPositionBaseY();
+        boolean vrai = false;
+
+        if(0<= positionXRobot || positionXRobot <=17 || 0 <= positionYRobot || positionYRobot <= 17){
+            vrai = true;
+        }
+        Assertions.assertTrue(vrai);
         Assertions.assertArrayEquals(posExperimentale,posExpected);
+
     }
     @Test
     public void jetonsTest(){
