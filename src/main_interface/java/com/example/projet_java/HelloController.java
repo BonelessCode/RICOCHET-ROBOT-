@@ -133,6 +133,7 @@ public class HelloController {
         deplacementPosition(scene);
     }
 
+
     private void resetListeCoups() {
         Jeu.listeCoupsJoueurs = new ArrayList<>(Collections.nCopies(nombreJoueurs, MAX_COUPS));
 

@@ -50,7 +50,9 @@ public class Jeu {
         HelloApplication.main(args);
     }
 
-
+    /**
+     * Permet de générer l'ensemble des jetons du plateau.
+     */
     public static void destinationJeton() {
         DestinationJeton destinationJetonJauneCercle = new DestinationJeton(1, 11, 6,"JauneCercle", "j");
         DestinationJeton destinationJetonJauneTriangle = new DestinationJeton(2, 1, 6,"JauneTriangle", "j");
@@ -89,7 +91,9 @@ public class Jeu {
     }
 
 
-
+    /**
+     * Permet de générer l'ensemble des jetons tirés
+     */
     public static void genererJetonTirage(){
         jetons = new ArrayList<>();
         List<String> paths = List.of("JauneCercle",
@@ -112,12 +116,14 @@ public class Jeu {
 
         for (int i =0;i<16;i++){
             JetonTirage jeton = new JetonTirage(i+1,paths.get(i));
-//            System.out.println("Jeton tirage créé \n id : "+(i+1)+" nom : "+paths.get(i));
             jetons.add(jeton);
         }
     }
 
-
+    /**
+     * Génère un jeton de manière aléatoire
+     * @return un Jeton
+     */
     public static JetonTirage choisirJeton() {
 
         int id = (int)(Math.random() * 15);
@@ -125,7 +131,12 @@ public class Jeu {
         return jetons.get(id);
     }
 
-
+    /**
+     * Permet de déplacer le robot en fonction du plateau
+     * @param robot le robot à déplacer
+     * @param choix entier qui correspond au choix de déplacement : 1 à gauche, 2 en haut, 3 à droite et 4 en bas
+     * @return
+     */
     public static int[] deplacement(Robot robot,int choix){
         int positionXBase = robot.getPositionX();
         int positionYBase = robot.getPositionY();
@@ -133,7 +144,6 @@ public class Jeu {
         if(choix==1){
             while(!plateau[positionYBase][positionXBase].isMurGauche() && !plateau[positionYBase][positionXBase-1].isMurDroit() && !isObstacle(choix,robot,positionXBase,positionYBase)){
                 positionXBase-=1;
-
             }
         }
 
@@ -158,7 +168,11 @@ public class Jeu {
 
     }
 
-
+    /**
+     * Vérifie si le robot de la bonne couleur arrive sur le jeton du plateau correspondant au jeton tiré au début de la partie.
+     * @param robot le robot en cours de déplacement
+     * @return 1 si on a gagné, 0 sinon
+     */
    public static int verifJeton(Robot robot){
        boolean M;
        boolean L;
@@ -187,7 +201,14 @@ public class Jeu {
    }
 
 
-
+    /**
+     * Vérifie si le choix de déplacement du robot ne le dirige pas vers un autre robot
+     * @param choix
+     * @param robot
+     * @param posx
+     * @param posy
+     * @return true si il y a un autre robot dans la case vers où on se déplace, false sinon
+     */
     private static boolean isObstacle(int choix,Robot robot,int posx,int posy){
         for (Robot otherRobot : robots){
             if(otherRobot != robot){
@@ -239,8 +260,6 @@ public class Jeu {
             x = randomList.get(random.nextInt(0,randomList.size()-1));
             y = randomList.get(random.nextInt(0,randomList.size()-1));
             robots[i] = new Robot(x,y,couleurs.get(i),paths.get(i));
-
-
         }
     }
 
