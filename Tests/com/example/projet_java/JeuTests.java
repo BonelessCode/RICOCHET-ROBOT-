@@ -34,17 +34,6 @@ public class JeuTests {
         System.out.println(posExpected[0]+" "+posExpected[1]);
         System.out.println(posExperimentale[0]+" "+posExperimentale[1]);
         Assertions.assertArrayEquals(posExperimentale,posExpected);
-
-        int positionXRobot = Robot.getPositionBaseX();
-        int positionYRobot = Robot.getPositionBaseY();
-        boolean vrai = false;
-
-        if(0<= positionXRobot || positionXRobot <=17 || 0 <= positionYRobot || positionYRobot <= 17){
-            vrai = true;
-        }
-        Assertions.assertTrue(vrai);
-
-
     }
 
     /**

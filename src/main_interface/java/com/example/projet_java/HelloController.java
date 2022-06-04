@@ -87,6 +87,11 @@ public class HelloController {
     private Button boutonNext = new Button("Next");
     private ArrayList<Integer> listeCoupsJoueursRestants;
 
+
+    /**
+     * Initialisation de la scène et du stage
+     * @param event
+     */
     @FXML
     protected void onPlayButtonClick(ActionEvent event) {
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
@@ -133,12 +138,17 @@ public class HelloController {
         deplacementPosition(scene);
     }
 
-
+    /**
+     * Remplit la variable listeCoupsJoueurs de Jeu de la valeur maximum d'Integer.
+     */
     private void resetListeCoups() {
         Jeu.listeCoupsJoueurs = new ArrayList<>(Collections.nCopies(nombreJoueurs, MAX_COUPS));
 
     }
 
+    /**
+     * Deplacement avec les touches du clavier.
+     */
     private void deplacementPosition(Scene scene) {
         scene.setOnKeyPressed(keyEvent -> {
 
@@ -202,6 +212,9 @@ public class HelloController {
         });
     }
 
+    /**
+     * Vérifie à chaque tour si on a gagné, si oui, relance le jeu.
+     */
     private void verifierVictoire() {
         if(Jeu.verifJeton(robotSelected)==1){
             System.out.println("Nombre de coups i.e : "+Jeu.nbrCoup);

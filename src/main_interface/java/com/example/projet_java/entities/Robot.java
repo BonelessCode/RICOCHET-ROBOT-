@@ -2,21 +2,21 @@ package com.example.projet_java.entities;
 
 public class Robot {
 
-    public String getCouleur() {
-        return couleur;
-    }
+
 
     String couleur;
 
     String path;
 
-    static int positionBaseX;
-    static int positionBaseY;
+    int positionBaseX;
+    int positionBaseY;
 
     int positionX;
     int positionY;
 
-
+    public String getCouleur() {
+        return couleur;
+    }
 
 
     public Robot(int positionX, int positionY, String couleur, String path) {
@@ -56,10 +56,10 @@ public class Robot {
         return positionY;
     }
 
-    public static int getPositionBaseX() {
+    public int getPositionBaseX() {
         return positionBaseX;
     }
-    public static int getPositionBaseY() {
+    public int getPositionBaseY() {
         return positionBaseY;
     }
 
