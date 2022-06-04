@@ -54,6 +54,9 @@ public class HelloController {
 
     ImageView imageSelectionnee;
 
+    /**
+     * Importation des images et placement des images sur le plateau.
+     */
 
 
     Image pionDefaut = new Image(getClass().getResourceAsStream("/img/pion_bleu.png"), SCREEN_SIZE / 17, SCREEN_SIZE / 17, false, false);
@@ -87,11 +90,6 @@ public class HelloController {
     private Button boutonNext = new Button("Next");
     private ArrayList<Integer> listeCoupsJoueursRestants;
 
-
-    /**
-     * Initialisation de la scène et du stage
-     * @param event
-     */
     @FXML
     protected void onPlayButtonClick(ActionEvent event) {
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
@@ -138,17 +136,18 @@ public class HelloController {
         deplacementPosition(scene);
     }
 
-    /**
-     * Remplit la variable listeCoupsJoueurs de Jeu de la valeur maximum d'Integer.
-     */
+
+
     private void resetListeCoups() {
         Jeu.listeCoupsJoueurs = new ArrayList<>(Collections.nCopies(nombreJoueurs, MAX_COUPS));
 
     }
 
     /**
-     * Deplacement avec les touches du clavier.
+     * Permet de déplacer les robots
+     * @param scene
      */
+
     private void deplacementPosition(Scene scene) {
         scene.setOnKeyPressed(keyEvent -> {
 
@@ -213,8 +212,9 @@ public class HelloController {
     }
 
     /**
-     * Vérifie à chaque tour si on a gagné, si oui, relance le jeu.
+     * Permet de vérifier si le robot est arrivé à sa destination
      */
+
     private void verifierVictoire() {
         if(Jeu.verifJeton(robotSelected)==1){
             System.out.println("Nombre de coups i.e : "+Jeu.nbrCoup);
@@ -254,6 +254,9 @@ public class HelloController {
         timer();
     }
 
+    /**
+     * Permet d'afficher les jetons sur le plateau
+     */
 
     private void afficherJetonsPlateau() {
         ImageView image;
@@ -265,6 +268,10 @@ public class HelloController {
             root.add(image,destinationJeton.getPosx(),destinationJeton.getPosy());
         }
     }
+
+    /**
+     * Permet d'afficher les robots
+     */
 
     private void afficherRobots() {
         // Ajouter robots sur le plateau
@@ -282,6 +289,8 @@ public class HelloController {
             listeImagesRobots.add(imageRobots);
         }
     }
+
+
 
     private void afficherTextInputJoueurs() {
         ImageView image;
@@ -329,7 +338,9 @@ public class HelloController {
     }
 
 
-
+    /**
+     * Permet d'afficher le jeton à atteindre en bas de l'écran
+     */
     private void afficherJeton() {
         Image jeton = new Image(getClass().getResourceAsStream("/img/"+ Jeu.jeton.getPath() + ".png"), (SCREEN_SIZE / 17), (SCREEN_SIZE / 17), false, false);
         imageJetonTirage = new ImageView(jeton);
@@ -375,7 +386,9 @@ public class HelloController {
 
     }
 
-
+    /**
+     * Affichage du timer de 30 secondes en bas de l'écran
+     */
     private void timer() {
 
 
@@ -494,6 +507,14 @@ public class HelloController {
         nombreJoueur.setText("Nombre de joueurs : " +nombreJoueurs);
     }
 
+    /**
+     * Fonction permettant de déplacer les robots sur le plateau
+     * @param entite
+     * @param posxDebut
+     * @param posyDebut
+     * @param posx
+     * @param posy
+     */
     private void animate(ImageView entite ,int posxDebut,int posyDebut,int posx, int posy) {
 
 //        double xDebut = entite.getLayoutX(); double yDebut = entite.getLayoutY(); //measure new location
