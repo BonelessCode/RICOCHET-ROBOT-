@@ -13,8 +13,8 @@ Ricochet Robots is a strategic puzzle board game where players compete to solve 
 - Choose the number of players from the menu.
 - Each player solves puzzles within a 30-second timeframe.
 - Submit each players' minimum number of moves for the robot to reach the target.
-- Player with the fewest moves demonstrates their solution.
-- Reset if a mistake is done
+- Player with the fewest moves demonstrates their solution (click on the robot which you want to move, and use ZQSD to move the associated robot).
+- Reset if a mistake is done.
 - Next puzzle available once it is completed (or failed).
 
 ## Screenshots:
